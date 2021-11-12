@@ -1,6 +1,8 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model  } = require("mongoose");
 const reviewSchema = require("./Review");
 const dateFormat = require("../utils/dateFormat");
+const imageSchema = require("./Image")
+
 
 const ProductSchema = new Schema(
   {
@@ -22,18 +24,7 @@ const ProductSchema = new Schema(
       type: Number,
       default: 0,
     },
-    images: [
-      {
-        public_id: {
-          type: String,
-          required: true,
-        },
-        url: {
-          type: String,
-          required: true,
-        },
-      },
-    ],
+    
     category: {
       type: String,
       required: [
@@ -49,6 +40,7 @@ const ProductSchema = new Schema(
       ],
       default: 0,
     },
+    images: [imageSchema],
     createdAt: {
       type: Date,
       default: Date.now,

@@ -3,10 +3,6 @@ const dateFormat = require("../utils/dateFormat");
 
 const reviewSchema = new Schema(
   {
-    reviewId: {
-      type: Schema.Types.ObjectId,
-      default: () => new Types.ObjectId(),
-    },
     reviewBody: {
       type: String,
         required: true,

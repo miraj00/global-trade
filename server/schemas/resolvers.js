@@ -1,4 +1,4 @@
-const { User, Product } = require("../models");
+const { User, Product , Image } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 
@@ -10,13 +10,13 @@ const resolvers = {
     },
     // get a user by username
     user: async (parent, { username }) => {
-      return User.findOne({ username })
-      .select("-__v -password")
+      return User.findOne({ username }).select("-__v -password");
     },
+
     products: async () => {
       return Product.find().populate("reviews");
     },
-    product: async ({ _id }) => {
+    product: async (parent , { _id }) => {
       return Product.findOne({ _id }).populate("reviews");
     },
   },
@@ -45,11 +45,14 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    addProduct: async (parent, args, context) => {
-      console.log(args, context);
-
-      const newProduct = await Product.create(context);
-      return { newProduct };
+    addProduct: async (parent, args) => {
+      console.log(args);
+      const newImages = args.images.map((item)=>({url:item})
+      )
+      // const newImages = await Image.insertMany(imagesToCreate);
+      const newProduct = await Product.create({ ...args, images: newImages });
+      console.log(newProduct)
+      return newProduct ;
     },
     deleteProduct: async (parent, { productId }) => {
       const removedProduct = await Product.findOneAndUpdate(
