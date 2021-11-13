@@ -18,15 +18,15 @@ const typeDefs = gql`
     images: [Images]
     category: String
     stock: Int
+    reviews: [Review]
     reviewCount: Int
-    reviewProduct: [Review]
   }
-
-  type Images{
+  
+  type Images {
     _id: ID
     url: String
   }
-
+  
   type Review {
     _id: ID
     reviewBody: String!
@@ -57,6 +57,7 @@ const typeDefs = gql`
     user(username: String!): User
     products: [Product]
     product(_id: ID!): Product
+    getAllReviews: [Product]
   }
 
   type Mutation {
@@ -71,7 +72,7 @@ const typeDefs = gql`
       category: String!
       stock: Int!
     ): Product
-    deleteProduct(productId: ID!): Product
+    removeProduct(productId: Int!): Product
     addReview(productId: ID!, reviewBody: String!): Product
   }
 `;

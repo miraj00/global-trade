@@ -1,5 +1,4 @@
 const { Schema, model  } = require("mongoose");
-const reviewSchema = require("./Review");
 const dateFormat = require("../utils/dateFormat");
 const imageSchema = require("./Image")
 
@@ -24,7 +23,7 @@ const ProductSchema = new Schema(
       type: Number,
       default: 0,
     },
-    
+
     category: {
       type: String,
       required: [
@@ -46,7 +45,7 @@ const ProductSchema = new Schema(
       default: Date.now,
       get: (createdAtVal) => dateFormat(createdAtVal),
     },
-    reviews: [reviewSchema],
+    // totalProducts: [ProductSchema],
   },
   {
     toJSON: {
@@ -57,9 +56,10 @@ const ProductSchema = new Schema(
   }
 );
 
-ProductSchema.virtual("reviewCount").get(function () {
-  return this.reviews.length;
-});
+ProductSchema.virtual("totalProducts").get(function () {
+  return this.totalProducts.length;
+})
+
 
 const Product = model("Product", ProductSchema);
 module.exports = Product;

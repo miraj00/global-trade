@@ -1,4 +1,4 @@
-const { User, Product , Image } = require("../models");
+const { User, Product, Image , Review } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 
@@ -16,8 +16,11 @@ const resolvers = {
     products: async () => {
       return Product.find().populate("reviews");
     },
-    product: async (parent , { _id }) => {
+    product: async (parent, { _id }) => {
       return Product.findOne({ _id }).populate("reviews");
+    },
+    getAllReviews: async () => {
+      return Product.find();
     },
   },
 
@@ -47,21 +50,30 @@ const resolvers = {
     },
     addProduct: async (parent, args) => {
       console.log(args);
-      const newImages = args.images.map((item)=>({url:item})
-      )
+      const newImages = args.images.map((item) => ({ url: item }));
       // const newImages = await Image.insertMany(imagesToCreate);
       const newProduct = await Product.create({ ...args, images: newImages });
-      console.log(newProduct)
-      return newProduct ;
+      console.log(newProduct);
+      return newProduct;
     },
-    deleteProduct: async (parent, { productId }) => {
-      const removedProduct = await Product.findOneAndUpdate(
-        { _id: productId },
-        { $pull: productId },
-        { new: true }
-      );
+    removeProduct: async (parent, { id }) => {
+      console.log(_id)
+      const removedProduct = await Product.findOneAndDelete({id});
       return removedProduct;
+    },
+    addReview: async (parent, { productId, reviewBody }, context) => {
+      // console.log(productId, reviewBody);
+      if (context.user) {
+        const newReview = await Product.findOneAndUpdate(
+          { _id: productId },
+          { $push: { reviews: { reviewBody, username: context.user.username } } },
+          { new: true, runValidators: true }
+        );
+        return newReview;
+      }
+      throw new AuthenticationError("You need to be logged in!");
     },
   },
 };
+
 module.exports = resolvers;

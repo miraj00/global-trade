@@ -5,7 +5,7 @@ const reviewSchema = new Schema(
   {
     reviewBody: {
       type: String,
-        required: true,
+      required: true,
       minLength: [10, "must contain more than 10 characters"],
       maxLength: 500,
     },
