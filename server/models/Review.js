@@ -9,7 +9,7 @@ const reviewSchema = new Schema(
       minLength: [10, "must contain more than 10 characters"],
       maxLength: 500,
     },
-    username: {
+    userId: {
       type: String,
       required: true,
       trim: true,

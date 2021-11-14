@@ -1,6 +1,7 @@
 const { Schema, model  } = require("mongoose");
 const dateFormat = require("../utils/dateFormat");
 const imageSchema = require("./Image")
+const reviewSchema = require('./Review')
 
 
 const ProductSchema = new Schema(
@@ -45,7 +46,7 @@ const ProductSchema = new Schema(
       default: Date.now,
       get: (createdAtVal) => dateFormat(createdAtVal),
     },
-    // totalProducts: [ProductSchema],
+    reviews: [reviewSchema]
   },
   {
     toJSON: {

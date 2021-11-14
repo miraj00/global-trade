@@ -58,21 +58,25 @@ const resolvers = {
       console.log(newProduct);
       return newProduct;
     },
-    saveCostumerProducts: async (parent, args, context) => {
+    saveCustomerProducts: async (parent, args, context) => {
       if (context.user) {//not working saved products
         const costumerProduct = await User.findByIdAndUpdate(
           context.user._id,
           { $push: { savedProducts: args.savedProduct } },
-          {new: true , runValidation: true}
-        )
+          { new: true, runValidation: true }
+        ).populate("savedProducts");
         return costumerProduct
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    contactForm: async (parent, args, context) => {
-      console.log(args); // not properly working
+    contactForm: async (parent, {userId , email, contactBody } , context) => {
+      // console.log(args); // not properly working
       if (context.user) {        
-        const newForm = await User.create({...args , username: context.user.username});
+        const newForm = await User.findByIdAndUpdate(
+          userId,// find id first
+          { $push: { contactUs: { email, contactBody , userId: context.user._id } } }, // pushig it to contactUS in the model
+          {new : true , runValidators: true}
+        );
         return newForm;        
       }
       throw new AuthenticationError("You need to be logged in!");
@@ -86,14 +90,15 @@ const resolvers = {
         return removedProduct;
       }
     },
-    addReview: async (parent,args , context) => {//review not working
-      console.log(args);
+    addReview: async (parent,{reviewBody , userId , productId} , context) => {//review not working
+      // console.log(args);
       if (context.user) {
-        const newReview = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $push: { contactForm: args.contactBody } },
+        const newReview = await Product.findByIdAndUpdate(
+           productId ,// looking for id
+          { $push: { reviews: {reviewBody , userId } } },//pushing this to the array
           { new: true, runValidators: true }
         );
+        console.log(newReview)
         return newReview
       }
       throw new AuthenticationError("You need to be logged in!");

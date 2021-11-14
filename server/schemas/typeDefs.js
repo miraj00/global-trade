@@ -7,7 +7,7 @@ const typeDefs = gql`
     email: String
     productCount: Int
     savedProducts: [Product]
-    contactForm: [ContactUs]
+    contactUs: [ContactUs]
   }
 
   type Product {
@@ -26,7 +26,7 @@ const typeDefs = gql`
   type ContactUs {
     _id: ID
     contactBody: String
-    username: String
+    userId: String
     createdAt: String
   }
 
@@ -38,7 +38,7 @@ const typeDefs = gql`
   type Review {
     _id: ID
     reviewBody: String!
-    username: String!
+    userId: String!
     createdAt: String
   }
 
@@ -83,8 +83,8 @@ const typeDefs = gql`
     ): Product
     removeProduct(productId: ID!): Product
     addReview(userId: ID! ,productId: ID!, reviewBody: String!): Product
-    saveCostumerProducts(savedProduct: product): User
-    contactForm(username: String!, email: String!, contactBody: String!): User
+    saveCustomerProducts(savedProduct: ID!): User
+    contactForm(userId: ID!, email: String!, contactBody: String!): User
   }
 `;
 
