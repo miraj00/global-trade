@@ -1,6 +1,8 @@
-const { Schema, model } = require('mongoose');
-const bcrypt = require('bcrypt');
+const { Schema, model } = require("mongoose");
+const bcrypt = require("bcrypt");
 const { isEmail } = require("validator");
+const contactSchema = require("./ContactUs")
+
 
 const userSchema = new Schema(
   {
@@ -31,6 +33,7 @@ const userSchema = new Schema(
         ref: "Product",
       },
     ],
+    contactUs: [contactSchema]
   },
   // set this to use virtual below
   {
@@ -42,8 +45,8 @@ const userSchema = new Schema(
 
 // hash user password
 // set up pre-save middleware to create password
-userSchema.pre('save', async function(next) {
-  if (this.isNew || this.isModified('password')) {
+userSchema.pre("save", async function (next) {
+  if (this.isNew || this.isModified("password")) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
   }
@@ -52,15 +55,15 @@ userSchema.pre('save', async function(next) {
 });
 
 // compare the incoming password with the hashed password
-userSchema.methods.isCorrectPassword = async function(password) {
+userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
 // when we query a user, we'll also get another field called `bookCount` with the number of saved books we have
-userSchema.virtual('productCount').get(function () {
+userSchema.virtual("productCount").get(function () {
   return this.savedProducts.length;
 });
 
-const User = model('User', userSchema);
+const User = model("User", userSchema);
 
 module.exports = User;

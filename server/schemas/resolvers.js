@@ -1,4 +1,4 @@
-const { User, Product, Image , Review } = require("../models");
+const { User, Product, Image, Review, ContactUs } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 
@@ -22,6 +22,9 @@ const resolvers = {
     getAllReviews: async () => {
       return Product.find();
     },
+    getMessages: async () => {
+      return User.find()
+    }
   },
 
   Mutation: {
@@ -51,25 +54,47 @@ const resolvers = {
     addProduct: async (parent, args) => {
       console.log(args);
       const newImages = args.images.map((item) => ({ url: item }));
-      // const newImages = await Image.insertMany(imagesToCreate);
       const newProduct = await Product.create({ ...args, images: newImages });
       console.log(newProduct);
       return newProduct;
     },
-    removeProduct: async (parent, { id }) => {
-      console.log(_id)
-      const removedProduct = await Product.findOneAndDelete({id});
-      return removedProduct;
+    saveCostumerProducts: async (parent, args, context) => {
+      if (context.user) {//not working saved products
+        const costumerProduct = await User.findByIdAndUpdate(
+          context.user._id,
+          { $push: { savedProducts: args.savedProduct } },
+          {new: true , runValidation: true}
+        )
+        return costumerProduct
+      }
+      throw new AuthenticationError("You need to be logged in!");
     },
-    addReview: async (parent, { productId, reviewBody }, context) => {
-      // console.log(productId, reviewBody);
+    contactForm: async (parent, args, context) => {
+      console.log(args); // not properly working
+      if (context.user) {        
+        const newForm = await User.create({...args , username: context.user.username});
+        return newForm;        
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    removeProduct: async (parent, {productId}) => {
+      console.log(productId);
+      if (!productId) {
+        return { message: "not id found" };
+      } else {
+        const removedProduct = await Product.findOneAndDelete(productId);
+        return removedProduct;
+      }
+    },
+    addReview: async (parent,args , context) => {//review not working
+      console.log(args);
       if (context.user) {
-        const newReview = await Product.findOneAndUpdate(
-          { _id: productId },
-          { $push: { reviews: { reviewBody, username: context.user.username } } },
+        const newReview = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $push: { contactForm: args.contactBody } },
           { new: true, runValidators: true }
         );
-        return newReview;
+        return newReview
       }
       throw new AuthenticationError("You need to be logged in!");
     },

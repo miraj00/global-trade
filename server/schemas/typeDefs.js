@@ -7,6 +7,7 @@ const typeDefs = gql`
     email: String
     productCount: Int
     savedProducts: [Product]
+    contactForm: [ContactUs]
   }
 
   type Product {
@@ -21,12 +22,19 @@ const typeDefs = gql`
     reviews: [Review]
     reviewCount: Int
   }
-  
+
+  type ContactUs {
+    _id: ID
+    contactBody: String
+    username: String
+    createdAt: String
+  }
+
   type Images {
     _id: ID
     url: String
   }
-  
+
   type Review {
     _id: ID
     reviewBody: String!
@@ -58,6 +66,7 @@ const typeDefs = gql`
     products: [Product]
     product(_id: ID!): Product
     getAllReviews: [Product]
+    getMessages: [ContactUs]
   }
 
   type Mutation {
@@ -72,8 +81,10 @@ const typeDefs = gql`
       category: String!
       stock: Int!
     ): Product
-    removeProduct(productId: Int!): Product
-    addReview(productId: ID!, reviewBody: String!): Product
+    removeProduct(productId: ID!): Product
+    addReview(userId: ID! ,productId: ID!, reviewBody: String!): Product
+    saveCostumerProducts(savedProduct: product): User
+    contactForm(username: String!, email: String!, contactBody: String!): User
   }
 `;
 
