@@ -66,7 +66,7 @@ const typeDefs = gql`
     products: [Product]
     product(_id: ID!): Product
     getAllReviews: [Product]
-    getMessages: [ContactUs]
+    getMessages: [User]
   }
 
   type Mutation {
