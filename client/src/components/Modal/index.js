@@ -58,7 +58,7 @@ function ModalC(props) {
           show={isModalOpen}
           onHide={onClose}
           animation={true}
-          size="xl"
+          size="lg"
           aria-labelledby="contained-modal-title-vcenter"
           centered
           style={display.modalMargin}

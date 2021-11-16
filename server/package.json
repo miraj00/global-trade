@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "watch": "nodemon server.js"
+    "watch": "nodemon server.js",
+    "seed": "node seed/index.js"
   },
   "repository": {
     "type": "git",
@@ -21,12 +22,14 @@
   "homepage": "https://github.com/miraj00/global_trade#readme",
   "dependencies": {
     "apollo-server-express": "^2.12.0",
+    "axios": "^0.24.0",
     "bcrypt": "^4.0.1",
     "express": "^4.17.1",
     "faker": "^4.1.0",
     "graphql": "^15.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.9",
+    "node-fetch": "^3.1.0",
     "validator": "^13.7.0"
   },
   "devDependencies": {
