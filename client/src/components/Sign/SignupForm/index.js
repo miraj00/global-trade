@@ -1,17 +1,28 @@
 import * as React from "react";
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
+import { Link } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Alert , Form} from "react-bootstrap";
+
+
+const display = {
+  width: {
+    width: "100%",
+  },
+  main: {
+    margin: "auto",
+  },
+};
+
+
 
 function Copyright(props) {
   return (
@@ -23,7 +34,7 @@ function Copyright(props) {
     >
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Global Trade
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -33,19 +44,49 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignUp() {
+export default function SignupForm() {
+  const [userFormData, setUserFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  // set state for form validation
+  const [validated] = useState(false);
+  // set state for alert
+  const [showAlert, setShowAlert] = useState(false);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUserFormData({ ...userFormData, [name]: value });
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+
+    if (data.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
     // eslint-disable-next-line no-console
+
+    setUserFormData({
+      username: "",
+      email: "",
+      password: "",
+    });
     console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+      userFormData,
     });
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider
+      theme={theme}
+      noValidate
+      validated={validated}
+      onSubmit={handleSubmit}
+    >
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -55,10 +96,9 @@ export default function SignUp() {
             flexDirection: "column",
             alignItems: "center",
           }}
+          style={display.main}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
@@ -67,41 +107,56 @@ export default function SignUp() {
             noValidate
             onSubmit={handleSubmit}
             sx={{ mt: 3 }}
+            style={display.width}
           >
+            <Alert
+              dismissible
+              onClose={() => setShowAlert(false)}
+              show={showAlert}
+              variant="danger"
+            >
+              sorry...that username is already taken
+            </Alert>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
+                  htmlFor="username"
                   autoComplete="given-name"
-                  name="firstName"
+                  type="text"
+                  name="username"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id="username"
+                  label="username"
+                  onChange={handleInputChange}
+                  value={userFormData.username}
                   autoFocus
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid>
+              <Form.Control.Feedback type="invalid">
+                {/* {error && <div>Username is required!</div>} */}
+              </Form.Control.Feedback>
               <Grid item xs={12}>
                 <TextField
+                  htmlFor="email"
                   required
                   fullWidth
+                  type="email"
                   id="email"
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onChange={handleInputChange}
+                  value={userFormData.email}
                 />
               </Grid>
+              <Form.Control.Feedback type="invalid">
+                {/* {error && <div>Email is required!</div>} */}
+              </Form.Control.Feedback>
               <Grid item xs={12}>
                 <TextField
+                  htmlFor="password"
+                  type="password"
                   required
                   fullWidth
                   name="password"
@@ -109,14 +164,8 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  onChange={handleInputChange}
+                  value={userFormData.password}
                 />
               </Grid>
             </Grid>
@@ -125,12 +174,19 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={
+                !(
+                  userFormData.username &&
+                  userFormData.email &&
+                  userFormData.password
+                )
+              }
             >
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="#" variant="body2">
+              <Grid item style={display.main}>
+                <Link href="./Sign/SignIn" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

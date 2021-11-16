@@ -1,16 +1,18 @@
-import React from 'react';
-import Footer from './components/Footer';
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Navbar from './components/Navbar';
-
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
 
 function App() {
-        return (
-          <div>
-            <Navbar />
-            <Footer />
-          </div>
-        );
-      }
+  return (
+      <Router>
+        <>
+          <Navbar />
+          <Footer />
+        </>
+      </Router>
+  );
+}
 
 export default App;
