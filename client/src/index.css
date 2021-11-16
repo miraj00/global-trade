@@ -292,6 +292,7 @@ a {
 
 .navActive {
   color: var(--secondary);
+  align: center;
 }
 
 .map-selected {
