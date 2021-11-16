@@ -8,9 +8,10 @@ import SignupForm from "../Sign/SignupForm";
 const display = {
   nav: {
     justifyContent: "space-between",
+    borderBottom: "none",
   },
   inline: {
-    display: "flex",
+    display: "flex",    
   },
   modalmargin: {
     marginTop: "100px",

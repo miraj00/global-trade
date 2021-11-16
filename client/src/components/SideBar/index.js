@@ -13,14 +13,16 @@ import IconButton from "@mui/material/IconButton";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import About from "../About";
+import { Link, NavLink } from "react-router-dom";
 
 const drawerWidth = 200;
 const display = {
   nav: {
     justifyContent: "space-between",
     display: "flex",
-  }
-}
+  },
+};
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
@@ -119,31 +121,31 @@ export default function SideBar() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
+          <NavLink
+          as={Link}
+          to="../About"
+          activeClassName="navbar__link--active"
+          className="navbar__link"
+          >
+        <div>
+            About
+        </div>
+          </NavLink>
         <Divider />
         <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
+          {/* {["All mail", "Trash", "Spam"].map((text, index) => (
             <ListItem button key={text}>
-              <ListItemIcon>
-                {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
-              </ListItemIcon>
+              <ListItemIcon> */}
+          {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
+          {/* </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
-          ))}
+          ))} */}
         </List>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <Typography paragraph>
+        {/* <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
           dolor purus non enim praesent elementum facilisis leo vel. Risus at
@@ -171,9 +173,9 @@ export default function SideBar() {
           sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
           eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
           posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        </Typography> */}
+        {/* <About /> */}
       </Main>
     </Box>
   );
 }
-
