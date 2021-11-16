@@ -15,6 +15,9 @@ const display = {
   header: {
     textAlign: "center",
   },
+  modalMargin: {
+    marginTop: "100px",
+  },
 };
 
 function ModalC(props) {
@@ -58,6 +61,7 @@ function ModalC(props) {
           size="xl"
           aria-labelledby="contained-modal-title-vcenter"
           centered
+          style={display.modalMargin}
         >
           <Modal.Header>
             <Modal.Title id="contained-modal-title-vcenter">

@@ -19,6 +19,9 @@ const display = {
   },
   main:{
   margin: "0 auto"
+  },
+  modalmargin: {
+    marginTop: "100px"
   }
 }
 
@@ -85,6 +88,7 @@ export default function SignIn() {
       noValidate
       validated={validated}
       onSubmit={handleSubmit}
+      
     >
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -107,6 +111,7 @@ export default function SignIn() {
             onSubmit={handleSubmit}
             sx={{ mt: 1 }}
             style={display.width}
+            
           >
             <Alert
               dismissible
