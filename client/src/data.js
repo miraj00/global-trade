@@ -11,7 +11,7 @@ import Walter from './assets/images/Walter.JPG';
 export default [
     {
         "id": 1,
-        "name": "Jose L.Mejia",
+        "name": "Jose L. Mejia",
         "image": Jose,
         "github": "https://github.com/mejialaguna",
         "deploy": "https://mejialaguna.github.io/React__Portfolio/"
@@ -53,7 +53,7 @@ export default [
     },
     {
         "id": 7,
-        "name": "Walter Gonzalez",
+        "name": "Walter Gonzales",
         "image": Walter,
         "github": "https://github.com/walterlaw19",
         "deploy": "https://walterlaw19.github.io/first-portfolio/"

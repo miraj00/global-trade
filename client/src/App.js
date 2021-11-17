@@ -13,23 +13,23 @@ import SavedProducts from './pages/SavedProducts';
 
 function App() {
   return (
-      <Router>
-        <>
-          
-          <SideBar />
-          
-          <Switch>
-            <Route path="/about" exact component= {About} />
-            <Route path="/team"  component= {Team} />
-               <Route exact path='/' component={SearchProducts} />
-               <Route exact path='/saved' component={SavedProducts} />
-               <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
-          </Switch>
-          {/* <Navbar /> */}
-          {/* <Navbar2 /> */}
-          <Footer />
-        </>
-      </Router>
+    <Router>
+      <>
+
+        <SideBar />
+
+        <Switch>
+          <Route path="/about" exact component={About} />
+          <Route path="/team" component={Team} />
+          <Route exact path='/' component={SearchProducts} />
+          <Route exact path='/saved' component={SavedProducts} />
+          <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
+        </Switch>
+        {/* <Navbar /> */}
+        {/* <Navbar2 /> */}
+        <Footer />
+      </>
+    </Router>
   );
 }
 
