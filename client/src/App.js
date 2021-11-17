@@ -6,6 +6,7 @@ import Navbar from "./components/NavBar";
 import SideBar from "./components/SideBar"
 import About from "./components/About";
 import Team from "./components/Team"
+import WorldMap from "./components/WorldMap";
 
 import SearchProducts from './pages/SearchProducts';
 import SavedProducts from './pages/SavedProducts';
@@ -17,6 +18,7 @@ function App() {
       <>
 
         <SideBar />
+        <WorldMap/>
 
         <Switch>
           <Route path="/about" exact component={About} />

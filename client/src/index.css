@@ -295,3 +295,14 @@ a {
 .navActive {
   color: var(--secondary);
 }
+
+
+.map-selected {
+  fill: #E3DA37;
+}
+.map-unselected {
+  fill: #699EAA;
+}
+.map-selected:hover, .map-unselected:hover {
+  cursor: pointer;
+}
