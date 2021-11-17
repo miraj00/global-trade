@@ -121,16 +121,12 @@ export default function SideBar() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-          <NavLink
-          as={Link}
-          to="../About"
-          activeClassName="navbar__link--active"
-          className="navbar__link"
-          >
-        <div>
-            About
-        </div>
-          </NavLink>
+        <Link to="/about" onClick={handleDrawerClose}>
+          About
+        </Link>
+        <Link to="/team" onClick={handleDrawerClose}>
+          Team
+        </Link>
         <Divider />
         <List>
           {/* {["All mail", "Trash", "Spam"].map((text, index) => (
