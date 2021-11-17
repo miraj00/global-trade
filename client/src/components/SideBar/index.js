@@ -1,4 +1,4 @@
-import NavBar from "../NavBar";
+import NavBar from "../NavBar/index.js";
 import * as React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -15,6 +15,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import About from "../About";
 import { Link, NavLink } from "react-router-dom";
+
 
 const drawerWidth = 200;
 const display = {
