@@ -6,6 +6,7 @@ import Navbar from "./components/NavBar";
 import SideBar from "./components/SideBar"
 import About from "./components/About";
 import Team from "./components/Team"
+import WorldMap from "./components/WorldMap"
 
 function App() {
   return (
@@ -15,8 +16,9 @@ function App() {
           <Switch>
             <Route path="/about" exact component= {About} />
             <Route path="/team"  component= {Team} />
+            <Route path="/worldmap" component= {WorldMap} />
           </Switch>
-          {/* <Navbar /> */}
+           <Navbar /> 
           <Footer />
         </>
       </Router>
