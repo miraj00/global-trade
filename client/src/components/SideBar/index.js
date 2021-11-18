@@ -1,20 +1,15 @@
 import NavBar from "../NavBar/index.js";
 import * as React from "react";
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import About from "../About";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 const drawerWidth = 200;
@@ -71,7 +66,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function SideBar() {
-  const theme = useTheme();
+  // const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -95,7 +90,7 @@ export default function SideBar() {
             // sx={{ mr: 2, ...(open && { display: "none" }) }}
           >
             {/* <MenuIcon /> */}
-            <img src="https://img.icons8.com/ios-glyphs/30/000000/menu--v1.png" />
+            <img src="https://img.icons8.com/ios-glyphs/30/000000/menu--v1.png"  alt="img"/>
           </IconButton>
           {/* <Typography variant="h6" noWrap component="div">
             Persistent drawer
@@ -118,7 +113,7 @@ export default function SideBar() {
       >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            <img src="https://img.icons8.com/ios-filled/50/000000/circled-left-2.png" />
+            <img src="https://img.icons8.com/ios-filled/50/000000/circled-left-2.png" alt= "img" />
           </IconButton>
         </DrawerHeader>
         <Divider />

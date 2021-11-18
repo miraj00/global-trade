@@ -161,7 +161,6 @@ export default function SignupForm() {
                   fullWidth
                   name="password"
                   label="Password"
-                  type="password"
                   id="password"
                   autoComplete="new-password"
                   onChange={handleInputChange}

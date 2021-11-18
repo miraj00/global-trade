@@ -8,7 +8,7 @@ import Walter from './assets/images/Walter.JPG';
 
 
 
-export default [
+const data =  [
     {
         "id": 1,
         "name": "Jose L.Mejia",
@@ -59,3 +59,5 @@ export default [
         "deploy": "https://walterlaw19.github.io/first-portfolio/"
     }
 ]
+
+export default data;
