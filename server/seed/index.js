@@ -9,6 +9,11 @@ mongoose.connect(
     useUnifiedTopology: true,
     useCreateIndex: true,
     useFindAndModify: false,
+  },
+  function (err) {
+    if (err) throw err;
+
+    console.log("Successfully connected");
   }
 );
 
@@ -16,11 +21,11 @@ mongoose.connect(
 const products = () => {
   return axios.get("https://fakestoreapi.com/products")
       .then(({data} ) => {
-        console.log(data , "=================================")
+        // console.log(data , "=================================")
       const dataProduct = data.map((item) => {
         return {
           name: item.title,
-          description: item.description ? item.name : "miscellaneous", 
+          description: item.description ? item.name : "miscellaneous",
           price: item.price ? item.price : 20,
           rating: item.rating.rate,
           category: item.category,
@@ -28,14 +33,13 @@ const products = () => {
           images: [{ url: item.image }],
         };
       })
-        return dataProduct;
+      Product.deleteMany({}).then(() => {
+          Product.insertMany(dataProduct).then((data) => {
+              console.log(data + "products inserted")
+          })
+      })
+        // return dataProduct;
     });
 };
 
-// products()
-
-Product.deleteMany({}).then(() => {
-    Product.insertMany(products()).then((data) => {
-        console.log(data.result.length + "products inserted")
-    })
-})
+products()

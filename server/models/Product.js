@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 const dateFormat = require("../utils/dateFormat");
 const imageSchema = require("./Image")
 const reviewSchema = require('./Review')
-
+const mongoose = require("mongoose");
 
 const ProductSchema = new Schema(
   {
@@ -17,6 +17,9 @@ const ProductSchema = new Schema(
     },
     price: {
       type: Number,
+      integer: true,
+      get: (v) => Math.round(v),
+      set: (v) => Math.round(v),
       // required: true,
       maxLength: [6, "price should not exceed 6 digit"],
     },
@@ -40,7 +43,7 @@ const ProductSchema = new Schema(
       default: Date.now,
       get: (createdAtVal) => dateFormat(createdAtVal),
     },
-    reviews: [reviewSchema]
+    reviews: [reviewSchema],
   },
   {
     toJSON: {
