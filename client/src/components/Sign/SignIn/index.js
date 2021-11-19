@@ -22,6 +22,10 @@ const display = {
   },
   modalmargin: {
     marginTop: "100px"
+  },
+  pointer: {
+    color: "blue",
+    cursor: "pointer"
   }
 }
 
@@ -35,7 +39,7 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
+      <Link color="inherit" href="#">
         Global Trade
       </Link>{" "}
       {new Date().getFullYear()}
@@ -46,7 +50,8 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SignIn(props) {
+  const { setCurrentText } = props
   const [userFormData, setUserFormData] = useState({ email: "", password: "" });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -166,9 +171,12 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item style={display.main}>
-                <Link href="#" variant="body2">
+                <Typography onClick={() => setCurrentText("Sign UP")}
+                  variant="body2"
+                  style={display.pointer}
+                >
                   {"Don't have an account? Sign Up"}
-                </Link>
+                </Typography>
               </Grid>
             </Grid>
           </Box>

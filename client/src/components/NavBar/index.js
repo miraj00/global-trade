@@ -62,8 +62,12 @@ function AppNavbar() {
           style={display.modalmargin}
         >
           <Tab.Container defaultActiveKey="login">
-            <Modal.Body>
-              {currentText === "Sign In" ? <SignIn /> : <SignupForm />}
+            <Modal.Body style={{padding: "0"}}>
+              {currentText === "Sign In" ? (
+                <SignIn setCurrentText={setCurrentText} />
+              ) : (
+                <SignupForm setCurrentText={setCurrentText} />
+              )}
             </Modal.Body>
           </Tab.Container>
         </Modal>

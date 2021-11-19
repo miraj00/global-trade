@@ -32,6 +32,9 @@ const display = {
   },
   btn: {
     width: "200px"
+  },
+  margin: {
+    paddingBottom: 60
   }
 };
 
@@ -77,7 +80,7 @@ export default function FreeSolo() {
   };
 
   return (
-    <>
+    <div style= {display.margin}>
       <form style={display.form} onSubmit={handleSubmit}>
         <Autocomplete
           style={display.select}
@@ -123,7 +126,7 @@ export default function FreeSolo() {
                   <Card.Title>{products.name}</Card.Title>
                   {/* <p className="small"> {products.name}</p> */}
                   <Card.Text>{products.description}</Card.Text>
-                  <Card.Footer> {products.price } $</Card.Footer>
+                  <Card.Footer> {products.price} $</Card.Footer>
                   {/* {Auth.loggedIn() && (
                     <div>
                       <Card.Text>
@@ -150,7 +153,7 @@ export default function FreeSolo() {
           })}
         </CardColumns>
       </Container>
-    </>
+    </div>
   );
 }
 

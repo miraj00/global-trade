@@ -11,6 +11,11 @@ const display = {
   contact: {
     padding: "0 35px",
     textDecorationLine: "none"
+  },
+  sticky: {
+    width: "100%",
+    position: "absolute",
+    bottom : 0
   }
 }
 
@@ -20,8 +25,9 @@ function Footer() {
      const toggleModal = () => {
        setIsModalOpen(!isModalOpen);
      };
-    return (
-      <div style={display.flex}>
+  return (
+      <div style = {display.sticky}>
+      <div style={display.flex} >
         <div>
           <span> &copy; 2021 Global Trade, Inc.</span>
         </div>
@@ -55,6 +61,7 @@ function Footer() {
             ></ModalC>
           )}
         </div>
+      </div>
       </div>
     );
     }   

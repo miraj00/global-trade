@@ -20,6 +20,10 @@ const display = {
   main: {
     margin: "auto",
   },
+  pointer: {
+    color: "blue",
+    cursor: "pointer"
+  }
 };
 
 
@@ -44,7 +48,8 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignupForm() {
+export default function SignupForm(props) {
+  const { setCurrentText } = props
   const [userFormData, setUserFormData] = useState({
     username: "",
     email: "",
@@ -185,9 +190,13 @@ export default function SignupForm() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item style={display.main}>
-                <Link variant="body2">
+                <Typography
+                  variant="body2"
+                  onClick={() => setCurrentText("Sign In")}
+                  style={display.pointer}
+                >
                   Already have an account? Sign in
-                </Link>
+                </Typography>
               </Grid>
             </Grid>
           </Box>
