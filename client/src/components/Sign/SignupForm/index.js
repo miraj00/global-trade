@@ -44,7 +44,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignupForm() {
+export default function SignupForm(props) {
   const [userFormData, setUserFormData] = useState({
     username: "",
     email: "",
@@ -185,9 +185,14 @@ export default function SignupForm() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item style={display.main}>
-                <Link variant="body2">
+                <a href="#"
+                 onClick={() => {
+                  props.setShowModal(true);
+                  props.setCurrentText("Sign In");
+                }}>
+
                   Already have an account? Sign in
-                </Link>
+                </a>
               </Grid>
             </Grid>
           </Box>

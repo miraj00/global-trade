@@ -46,7 +46,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SignIn(props) {
   const [userFormData, setUserFormData] = useState({ email: "", password: "" });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -166,15 +166,19 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item style={display.main}>
-                <Link href="#" variant="body2">
+                <a href="#"
+                onClick={() => {
+                  props.setShowModal(true);
+                  props.setCurrentText("Sign Up");
+                }}>
                   {"Don't have an account? Sign Up"}
-                </Link>
+                </a>
               </Grid>
             </Grid>
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
-    </ThemeProvider>
+    </ThemeProvider> 
   );
 }

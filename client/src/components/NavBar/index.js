@@ -63,7 +63,7 @@ function AppNavbar() {
         >
           <Tab.Container defaultActiveKey="login">
             <Modal.Body>
-              {currentText === "Sign In" ? <SignIn /> : <SignupForm />}
+              {currentText === "Sign In" ? <SignIn setShowModal={setShowModal} setCurrentText = {setCurrentText} /> : <SignupForm setShowModal = {setShowModal} setCurrentText = {setCurrentText}/>}
             </Modal.Body>
           </Tab.Container>
         </Modal>
