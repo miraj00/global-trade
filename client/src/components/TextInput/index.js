@@ -1,7 +1,5 @@
-
 import * as React from "react";
 import{ useState } from "react";
-// import Auth from "../../utils/auth";
 import getProducts from "../../utils/AP_i/allProducts"
 import  productsCategories from "../../utils/AP_i/productsCategories"
 import TextField from "@mui/material/TextField";

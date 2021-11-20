@@ -7,18 +7,6 @@
 //       username
 //       email
 //       productCount
-//       savedProducts {
-//         _id
-//         name
-//         description
-//         price
-//         rating
-//         images
-//         category
-//         stock
-//         reviews
-//         reviewCount
-//       }
 //     }
 //   }
 // `;

@@ -4,7 +4,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { Container } from "@mui/material";
@@ -64,12 +63,14 @@ export default function SignIn(props) {
 
   // update state based on form input changes
   const handleInputChange = (event) => {
+    event.persist();
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    event.persist();
 
     // const formData = new FormData(event.currentTarget);
 
@@ -80,11 +81,13 @@ export default function SignIn(props) {
 
     try {
       const { data }  = await login({
-        variables: { ...userFormData },
+        variables: {
+          email: userFormData.email,
+          password: userFormData.password },
       });
 
       Auth.login(data.login.token);
-      console.log(data);
+      console.log("data" , data);
     } catch (e) {
       console.error(e);
     }
@@ -105,7 +108,7 @@ export default function SignIn(props) {
         component="main"
         maxWidth="xs"
         noValidate
-        validated={validated}
+        validated={validated.toString()}
         onSubmit={handleSubmit}
       >
         <CssBaseline />

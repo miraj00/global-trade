@@ -83,4 +83,4 @@ export const REMOVE_PRODUCT = gql`
   }
 `;
 
-export default { LOGIN_USER, ADD_USER, CONTACT_FORM, ADD_USER };
+export default { LOGIN_USER, ADD_USER, CONTACT_FORM};

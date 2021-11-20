@@ -4,7 +4,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import { Link } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -72,10 +71,14 @@ export default function SignupForm(props) {
 
     try {
       const { SignupData } = await addUser({
-        variables: { ...userFormData },
+        variables: {
+          username: userFormData.username,
+          email: userFormData.email,
+          password: userFormData.password,
+        },
       });
       Auth.login(SignupData.addUser.token);
-      console.log(SignupData);
+      console.log("data",SignupData);
     } catch (e) {
       console.error(e);
       setShowAlert(true);
