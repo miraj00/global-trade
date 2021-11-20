@@ -70,15 +70,15 @@ export default function SignupForm(props) {
     // }
 
     try {
-      const { SignupData } = await addUser({
+      const { data } = await addUser({
         variables: {
           username: userFormData.username,
           email: userFormData.email,
           password: userFormData.password,
         },
       });
-      Auth.login(SignupData.addUser.token);
-      console.log("data",SignupData);
+      Auth.login(data.addUser.token);
+      console.log("data",data);
     } catch (e) {
       console.error(e);
       setShowAlert(true);
