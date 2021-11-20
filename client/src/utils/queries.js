@@ -30,7 +30,7 @@
 //     name
 //     description
 //     price
-//       # rating
+//     rating
 //     images{
 //       url
 //     }

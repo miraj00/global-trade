@@ -4,31 +4,36 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-// import Link from "@mui/material/Link";
 import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { Container } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Alert , Form } from "react-bootstrap";
+import { Alert, Form } from "react-bootstrap";
+import Auth from "../../../utils/auth";
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from "../../../utils/mutations";
+// import SnackBar from "../../SnackBar"
+
+
+
 
 const display = {
   width: {
-    width: "100%"    
+    width: "100%",
   },
-  main:{
-  margin: "0 auto"
+  main: {
+    margin: "0 auto",
   },
   modalmargin: {
-    marginTop: "100px"
+    marginTop: "100px",
   },
   pointer: {
     color: "blue",
-    cursor: "pointer"
-  }
-}
-
+    cursor: "pointer",
+  },
+};
 
 function Copyright(props) {
   return (
@@ -39,9 +44,9 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="#">
+      <span >
         Global Trade
-      </Link>{" "}
+      </span>
       {new Date().getFullYear()}
       {"."}
     </Typography>
@@ -51,10 +56,11 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn(props) {
-  const { setCurrentText } = props
+  const { setCurrentText } = props;
   const [userFormData, setUserFormData] = useState({ email: "", password: "" });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [login, { error }] = useMutation(LOGIN_USER);
 
   // update state based on form input changes
   const handleInputChange = (event) => {
@@ -62,40 +68,46 @@ export default function SignIn(props) {
     setUserFormData({ ...userFormData, [name]: value });
   };
 
-
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
 
+    // const formData = new FormData(event.currentTarget);
 
-    if (data.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+    // if (formData.checkValidity() === false) {
+    //   event.preventDefault();
+    //   event.stopPropagation();
+    // }
+
+    try {
+      const { data }  = await login({
+        variables: { ...userFormData },
+      });
+
+      Auth.login(data.login.token);
+      console.log(data);
+    } catch (e) {
+      console.error(e);
     }
 
     setUserFormData({
-      username: "",
       email: "",
       password: "",
     });
 
-
     console.log({
-      userFormData
+      userFormData,
     });
   };
 
   return (
-    <ThemeProvider
-      theme={theme}
-      noValidate
-      validated={validated}
-      onSubmit={handleSubmit}
-      
-    >
-      <Container component="main" maxWidth="xs">
+    <ThemeProvider theme={theme}>
+      <Container
+        component="main"
+        maxWidth="xs"
+        noValidate
+        validated={validated}
+        onSubmit={handleSubmit}
+      >
         <CssBaseline />
         <Box
           sx={{
@@ -110,55 +122,48 @@ export default function SignIn(props) {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 1 }}
-            style={display.width}
-            
-          >
+          <Box component="form" sx={{ mt: 1 }} style={display.width}>
             <Alert
               dismissible
               onClose={() => setShowAlert(false)}
               show={showAlert}
               variant="danger"
             >
-              sorry ... wrong username/password
+              sorry ... wrong Email/password
             </Alert>
-            <TextField
-              htmlFor="email"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              type="text"
-              onChange={handleInputChange}
-              value={userFormData.email}
-            />
+            <Grid htmlFor="email">
+              <TextField
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                type="text"
+                value={userFormData.email}
+                onChange={handleInputChange}
+              />
+            </Grid>
             <Form.Control.Feedback type="invalid">
-              {/* {error && <div>Email is required!</div>} */}
+              {error && <div>Email is required!</div>}
             </Form.Control.Feedback>
-
-            <TextField
-              htmlFor="password"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              onChange={handleInputChange}
-              value={userFormData.password}
-            />
+            <Grid htmlFor="password">
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={handleInputChange}
+                value={userFormData.password}
+              />
+            </Grid>
             <Form.Control.Feedback type="invalid">
-              {/* {error && <div>Password is required!</div>} */}
+              {error && <div>Password is required!</div>}
             </Form.Control.Feedback>
             <Button
               disabled={!(userFormData.email && userFormData.password)}
@@ -171,8 +176,8 @@ export default function SignIn(props) {
             </Button>
             <Grid container>
               <Grid item style={display.main}>
-                <Typography onClick={() => setCurrentText("Sign UP")}
-                  variant="body2"
+                <Typography
+                  onClick={() => setCurrentText("Sign UP")}
                   style={display.pointer}
                 >
                   {"Don't have an account? Sign Up"}
@@ -183,6 +188,6 @@ export default function SignIn(props) {
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
-    </ThemeProvider> 
+    </ThemeProvider>
   );
 }

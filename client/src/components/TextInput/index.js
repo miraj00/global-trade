@@ -2,7 +2,8 @@
 import * as React from "react";
 import{ useState } from "react";
 // import Auth from "../../utils/auth";
-import getProducts  from "../../utils/API";
+import getProducts from "../../utils/AP_i/allProducts"
+import  productsCategories from "../../utils/AP_i/productsCategories"
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
@@ -14,10 +15,10 @@ import {
 
 
 const Categories = [
-  { title: "Jewelery" },
-  { title: "Electronics" },
+  { title: "jewelery" },
+  { title: "electronics" },
   { title: "women's clothing" },
-  { title: "men clothing" },
+  { title: "men's clothing" },
   { title: "products" },
 ];
 
@@ -50,32 +51,64 @@ export default function FreeSolo() {
     if (!searchInput) {
       return false;
     }
+    
+    // ;  
+    if (searchInput === "products") {
+      try {
+        const response = await getProducts(searchInput);
 
-    try {
-      const response = await getProducts(searchInput);
-      console.log(searchInput)
-      console.log(response);
-      if (!response.ok) {
-        throw new Error("something went wrong!");
+        console.log(searchInput);
+        console.log(response);
+        if (!response.ok) {
+          throw new Error("something went wrong!");
+        }
+
+        const items = await response.json();
+        console.log(items);
+        const Data = items.map((item) => ({
+          name: item.title,
+          description: item.description,
+          price: item.price,
+          rating: item.rating.rate,
+          category: item.category,
+          stock: item.rating.count,
+          images: item.image,
+        }));
+
+        // console.log(Data)
+        setSearchedProducts(Data);
+        setSearchInput("");
+      } catch (err) {
+        console.error(err);
       }
+    } else {
+      try {
+        const response = await productsCategories(searchInput);
 
-      const items  = await response.json();
-        console.log(items)
-      const Data = items.map((item) => ({        
-        name: item.title,
-        description: item.description,
-        price: item.price,
-        rating: item.rating.rate,
-        category: item.category,
-        stock: item.rating.count,
-        images: item.image,
-      }));
+        console.log(searchInput);
+        console.log(response);
+        if (!response.ok) {
+          throw new Error("something went wrong!");
+        }
 
-      // console.log(Data)
-      setSearchedProducts(Data);
-      setSearchInput("");
-    } catch (err) {
-      console.error(err);
+        const items = await response.json();
+        console.log(items);
+        const Data = items.map((item) => ({
+          name: item.title,
+          description: item.description,
+          price: item.price,
+          rating: item.rating.rate,
+          category: item.category,
+          stock: item.rating.count,
+          images: item.image,
+        }));
+
+        // console.log(Data)
+        setSearchedProducts(Data);
+        setSearchInput("");
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
 
@@ -127,26 +160,6 @@ export default function FreeSolo() {
                   {/* <p className="small"> {products.name}</p> */}
                   <Card.Text>{products.description}</Card.Text>
                   <Card.Footer> {products.price} $</Card.Footer>
-                  {/* {Auth.loggedIn() && (
-                    <div>
-                      <Card.Text>
-                        {products.description} <a href={products.link}>link</a>{" "}
-                      </Card.Text>
-                      <Button
-                        disabled={savedproductsIds?.some(
-                          (savedproductsId) => savedproductsId === products.productsId
-                        )}
-                        className="btn-block btn-info"
-                        onClick={() => handleSaveproducts(products.productsId)}
-                      >
-                        {savedproductsIds?.some(
-                          (savedproductsId) => savedproductsId === products.productsId
-                        )
-                          ? "This products has already been saved!"
-                          : "Save this products!"}
-                      </Button>
-                    </div>
-                  )} */}
                 </Card.Body>
               </Card>
             );

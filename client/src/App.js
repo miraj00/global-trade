@@ -15,7 +15,6 @@ import Team from "./components/Team";
 import TextInput from "./components/TextInput";
 import SearchProducts from "./pages/SearchProducts";
 import SavedProducts from "./pages/SavedProducts";
-import StickyFooter from "react-sticky-footer";
 
 const httpLink = createHttpLink({
   uri: "/graphql",

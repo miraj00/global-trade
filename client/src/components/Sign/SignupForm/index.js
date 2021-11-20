@@ -10,8 +10,10 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Alert , Form} from "react-bootstrap";
-
+import { Alert, Form } from "react-bootstrap";
+import Auth from "../../../utils/auth";
+import { useMutation } from "@apollo/client";
+import { ADD_USER } from "../../../utils/mutations";
 
 const display = {
   width: {
@@ -22,11 +24,9 @@ const display = {
   },
   pointer: {
     color: "blue",
-    cursor: "pointer"
-  }
+    cursor: "pointer",
+  },
 };
-
-
 
 function Copyright(props) {
   return (
@@ -37,10 +37,7 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Global Trade
-      </Link>{" "}
-      {new Date().getFullYear()}
+      <span>Global Trade</span> {new Date().getFullYear()}
       {"."}
     </Typography>
   );
@@ -49,31 +46,40 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignupForm(props) {
-  const { setCurrentText } = props
+  const { setCurrentText } = props;
   const [userFormData, setUserFormData] = useState({
     username: "",
     email: "",
     password: "",
   });
-  // set state for form validation
   const [validated] = useState(false);
-  // set state for alert
   const [showAlert, setShowAlert] = useState(false);
+  const [addUser, { error }] = useMutation(ADD_USER);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    // const data = event.currentTarget;
 
-    if (data.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+    // if (data.checkValidity() === false) {
+    //   event.preventDefault();
+    //   event.stopPropagation();
+    // }
+
+    try {
+      const { SignupData } = await addUser({
+        variables: { ...userFormData },
+      });
+      Auth.login(SignupData.addUser.token);
+      console.log(SignupData);
+    } catch (e) {
+      console.error(e);
+      setShowAlert(true);
     }
-    // eslint-disable-next-line no-console
 
     setUserFormData({
       username: "",
@@ -86,13 +92,14 @@ export default function SignupForm(props) {
   };
 
   return (
-    <ThemeProvider
-      theme={theme}
-      noValidate
-      validated={validated}
-      onSubmit={handleSubmit}
-    >
-      <Container component="main" maxWidth="xs">
+    <ThemeProvider theme={theme}>
+      <Container
+        component="main"
+        maxWidth="xs"
+        noValidate
+        validated={validated}
+        onSubmit={handleSubmit}
+      >
         <CssBaseline />
         <Box
           sx={{
@@ -109,10 +116,8 @@ export default function SignupForm(props) {
           </Typography>
           <Box
             component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-            style={display.width}
+            // sx={{ mt: 3 }}
+            // style={display.width}
           >
             <Alert
               dismissible
@@ -123,9 +128,8 @@ export default function SignupForm(props) {
               sorry...that username is already taken
             </Alert>
             <Grid container spacing={2}>
-              <Grid item xs={12}>
+              <Grid item xs={12} htmlFor="username">
                 <TextField
-                  htmlFor="username"
                   autoComplete="given-name"
                   type="text"
                   name="username"
@@ -139,11 +143,10 @@ export default function SignupForm(props) {
                 />
               </Grid>
               <Form.Control.Feedback type="invalid">
-                {/* {error && <div>Username is required!</div>} */}
+                {error && <div>Username is required!</div>}
               </Form.Control.Feedback>
-              <Grid item xs={12}>
+              <Grid item xs={12} htmlFor="email">
                 <TextField
-                  htmlFor="email"
                   required
                   fullWidth
                   type="email"
@@ -156,22 +159,24 @@ export default function SignupForm(props) {
                 />
               </Grid>
               <Form.Control.Feedback type="invalid">
-                {/* {error && <div>Email is required!</div>} */}
+                {error && <div>Email is required!</div>}
               </Form.Control.Feedback>
-              <Grid item xs={12}>
+              <Grid item xs={12} htmlFor="password">
                 <TextField
-                  htmlFor="password"
                   type="password"
                   required
                   fullWidth
                   name="password"
                   label="Password"
                   id="password"
-                  autoComplete="new-password"
+                  // autoComplete="new-password"
                   onChange={handleInputChange}
                   value={userFormData.password}
                 />
               </Grid>
+              <Form.Control.Feedback type="invalid">
+                {error && <div>Password is required!</div>}
+              </Form.Control.Feedback>
             </Grid>
             <Button
               type="submit"
