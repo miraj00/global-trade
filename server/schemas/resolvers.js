@@ -134,7 +134,12 @@ const resolvers = {
         };
       }
 
+<<<<<<< HEAD
       return await Product.find(params).populate('category');
+=======
+    getAllProducts: async () => {
+      return Product.find().populate("reviews");
+>>>>>>> caa2bb16438f0a9c8499cfca205b85adb10b555c
     },
     product: async (parent, { _id }) => {
       return await Product.findById(_id).populate('category');
@@ -153,6 +158,7 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
+<<<<<<< HEAD
     order: async (parent, { _id }, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id).populate({
@@ -164,6 +170,10 @@ const resolvers = {
       }
 
       throw new AuthenticationError('Not logged in');
+=======
+    getContactFormMessages: async () => {
+      return ContactUs.find();
+>>>>>>> caa2bb16438f0a9c8499cfca205b85adb10b555c
     },
     checkout: async (parent, args, context) => {
       
@@ -254,8 +264,80 @@ const resolvers = {
       const token = signToken(user);
 
       return { token, user };
+<<<<<<< HEAD
     }
   }
+=======
+    },
+    addProduct: async (parent, args) => {
+      console.log(args);
+      const newImages = args.images.map((item) => ({ url: item }));
+      const newProduct = await Product.create({ ...args, images: newImages });
+      console.log(newProduct);
+      return newProduct;
+    },
+    saveCustomerProducts: async (parent, args, context) => {
+      if (context.user) {
+        //not working saved products
+        const costumerProduct = await User.findByIdAndUpdate(
+          context.user._id,
+          { $push: { savedProducts: args.savedProduct } },
+          { new: true, runValidation: true }
+        ).populate("savedProducts");
+        return costumerProduct;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    contactForm: async (parent, { email, contactBody }, context) => {
+      // console.log(args); // not properly working
+      // if (context.user) {
+      //   const newForm = await User.findByIdAndUpdate(
+      //     userId, // find id first
+      //     {
+      //       $push: {
+      //         contactUs: { email, contactBody, userId: context.user._id },
+      //       },
+      //     }, // pushig it to contactUS in the model
+      //     { new: true, runValidators: true }
+      //   );
+      //   return newForm;
+      // }
+      // throw new AuthenticationError("You need to be logged in!");
+      if (context.user) {
+        const newForm = await ContactUs.create({
+          email,
+          contactBody,
+          userId: context.user._id,
+        });
+        return newForm;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    removeProduct: async (parent, { productId }) => {
+      console.log(productId);
+      if (!productId) {
+        return { message: "not id found" };
+      } else {
+        const removedProduct = await Product.findOneAndDelete(productId);
+        return removedProduct;
+      }
+    },
+    addReview: async (parent, { reviewBody, userId, productId }, context) => {
+      //review not working
+      // console.log(args);
+      if (context.user) {
+        const newReview = await Product.findByIdAndUpdate(
+          productId, // looking for id
+          { $push: { reviews: { reviewBody, userId } } }, //pushing this to the array
+          { new: true, runValidators: true }
+        );
+        console.log(newReview);
+        return newReview;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+  },
+>>>>>>> caa2bb16438f0a9c8499cfca205b85adb10b555c
 };
 
 module.exports = resolvers;
