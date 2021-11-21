@@ -4,6 +4,7 @@ import ProjectCards from "../components/Project";
 
 const Team = () => {
   return (
+    <div className="margin3">
     <React.Fragment>
       <div className="container">
         <div className="modal-footer" />
@@ -21,6 +22,7 @@ const Team = () => {
         </div>
       </div>
     </React.Fragment>
+    </div>
   );
 };
 

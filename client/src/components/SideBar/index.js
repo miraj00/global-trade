@@ -123,15 +123,15 @@ export default function SideBar() {
       >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            <img src="https://img.icons8.com/ios-filled/50/000000/circled-left-2.png" alt="arrow" />
+            <img className="img3" src="https://img.icons8.com/ios-filled/50/000000/circled-left-2.png" alt="arrow" />
           </IconButton>
         </DrawerHeader>
         <Divider />
         <Link to="/about" onClick={handleDrawerClose}>
-          About
+        <div className="style7">  About   </div>
         </Link>
         <Link to="/team" onClick={handleDrawerClose}>
-          Team
+        <div className="style7">  Team       </div>
         </Link>
         <Divider />
         <List>
