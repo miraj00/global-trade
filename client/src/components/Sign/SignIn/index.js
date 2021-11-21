@@ -12,7 +12,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Alert, Form } from "react-bootstrap";
 import Auth from "../../../utils/auth";
 import { useMutation } from "@apollo/client";
-import { LOGIN_USER } from "../../../utils/mutations";
+import { LOGIN } from "../../../utils/mutations";
 // import SnackBar from "../../SnackBar"
 
 
@@ -59,7 +59,7 @@ export default function SignIn(props) {
   const [userFormData, setUserFormData] = useState({ email: "", password: "" });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const [login, { error }] = useMutation(LOGIN_USER);
+  const [login, { error }] = useMutation(LOGIN);
 
   // update state based on form input changes
   const handleInputChange = (event) => {

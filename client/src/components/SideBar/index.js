@@ -18,6 +18,9 @@ const display = {
     justifyContent: "space-between",
     display: "flex",
   },
+  cart: {
+    display: "flex"
+  },
 };
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -90,12 +93,18 @@ export default function SideBar() {
             // sx={{ mr: 2, ...(open && { display: "none" }) }}
           >
             {/* <MenuIcon /> */}
-            <img src="https://img.icons8.com/ios-glyphs/30/000000/menu--v1.png"  alt="img"/>
+            <img
+              src="https://img.icons8.com/ios-glyphs/30/000000/menu--v1.png"
+              alt="img"
+            />
           </IconButton>
           {/* <Typography variant="h6" noWrap component="div">
             Persistent drawer
           </Typography> */}
-          <NavBar />
+          
+            <NavBar />
+            
+          
         </Toolbar>
       </AppBar>
       <Drawer
@@ -113,7 +122,10 @@ export default function SideBar() {
       >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            <img src="https://img.icons8.com/ios-filled/50/000000/circled-left-2.png" alt= "img" />
+            <img
+              src="https://img.icons8.com/ios-filled/50/000000/circled-left-2.png"
+              alt="img"
+            />
           </IconButton>
         </DrawerHeader>
         <Divider />
@@ -124,8 +136,7 @@ export default function SideBar() {
           Team
         </Link>
         <Divider />
-        <List>
-        </List>
+        <List></List>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />

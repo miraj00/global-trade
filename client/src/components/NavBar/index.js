@@ -17,6 +17,9 @@ const display = {
   modalmargin: {
     marginTop: "100px",
   },
+  cart: {
+    marginRight: 10
+  }
 };
 
 function AppNavbar() {
@@ -30,7 +33,10 @@ function AppNavbar() {
           <div style={display.inline}>
 
             {Auth.loggedIn() ? (
-              <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
+              <>
+              <Nav.Link onClick={Auth.logout} style={display.cart}>Logout</Nav.Link>
+              <Cart />
+              </>
             ) : (
               <>
                 <Nav.Item>
@@ -75,7 +81,7 @@ function AppNavbar() {
             </Modal.Body>
           </Tab.Container>
         </Modal>
-          <Cart />
+          {/* <Cart /> */}
       </div>
     </>
   );
