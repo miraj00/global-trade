@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // const { Schema, model } = require("mongoose");
 // const bcrypt = require("bcrypt");
 // const { isEmail } = require("validator");
@@ -81,44 +80,6 @@ const userSchema = new Schema({
     type: String,
     required: true,
     trim: true
-=======
-const { Schema, model } = require("mongoose");
-const bcrypt = require("bcrypt");
-const { isEmail } = require("validator");
-const contactSchema = require("./ContactUs")
-
-
-const userSchema = new Schema(
-  {
-    username: {
-      type: String,
-      minLength: 6,
-      maxLength: 16,
-      required: [true, "this must be fill"],
-      trim: true,
-      unique: true,
-    },
-    email: {
-      type: String,
-      trim: true,
-      required: true,
-      lowercase: [true, "no uppercase ,  try again ...."],
-      unique: true,
-      validate: [isEmail, "please add a valid email address"],
-      // match: [/.+@.+\..+/, 'Must use a valid email address'],
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    savedProducts: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Product",
-      },
-    ],
-    // contactUs: [contactSchema]
->>>>>>> caa2bb16438f0a9c8499cfca205b85adb10b555c
   },
   lastName: {
     type: String,
