@@ -4,35 +4,27 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
+// import Link from "@mui/material/Link";
+import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import { Container } from "@mui/material";
+import { Container, formLabelClasses } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Alert, Form } from "react-bootstrap";
-import Auth from "../../../utils/auth";
-import { useMutation } from "@apollo/client";
-import { LOGIN_USER } from "../../../utils/mutations";
-// import SnackBar from "../../SnackBar"
-
-
-
+import { Alert , Form } from "react-bootstrap";
 
 const display = {
   width: {
-    width: "100%",
+    width: "100%"    
   },
-  main: {
-    margin: "0 auto",
+  main:{
+  margin: "0 auto"
   },
   modalmargin: {
-    marginTop: "100px",
-  },
-  pointer: {
-    color: "blue",
-    cursor: "pointer",
-  },
-};
+    marginTop: "100px"
+  }
+}
+
 
 function Copyright(props) {
   return (
@@ -43,9 +35,9 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <span >
+      <Link color="inherit" href="https://mui.com/">
         Global Trade
-      </span>
+      </Link>{" "}
       {new Date().getFullYear()}
       {"."}
     </Typography>
@@ -54,63 +46,51 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn(props) {
-  const { setCurrentText } = props;
+export default function SignIn() {
   const [userFormData, setUserFormData] = useState({ email: "", password: "" });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const [login, { error }] = useMutation(LOGIN_USER);
 
   // update state based on form input changes
   const handleInputChange = (event) => {
-    event.persist();
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
 
-  const handleSubmit = async (event) => {
+
+
+  const handleSubmit = (event) => {
     event.preventDefault();
-    event.persist();
+    const data = new FormData(event.currentTarget);
+    // eslint-disable-next-line no-console
 
-    // const formData = new FormData(event.currentTarget);
 
-    // if (formData.checkValidity() === false) {
-    //   event.preventDefault();
-    //   event.stopPropagation();
-    // }
-
-    try {
-      const { data }  = await login({
-        variables: {
-          email: userFormData.email,
-          password: userFormData.password },
-      });
-
-      Auth.login(data.login.token);
-      console.log("data" , data);
-    } catch (e) {
-      console.error(e);
+    if (data.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
     }
 
     setUserFormData({
+      username: "",
       email: "",
       password: "",
     });
 
+
     console.log({
-      userFormData,
+      userFormData
     });
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container
-        component="main"
-        maxWidth="xs"
-        noValidate
-        validated={validated.toString()}
-        onSubmit={handleSubmit}
-      >
+    <ThemeProvider
+      theme={theme}
+      noValidate
+      validated={validated}
+      onSubmit={handleSubmit}
+      
+    >
+      <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
@@ -125,48 +105,56 @@ export default function SignIn(props) {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" sx={{ mt: 1 }} style={display.width}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 1 }}
+            style={display.width}
+            
+          >
             <Alert
               dismissible
               onClose={() => setShowAlert(false)}
               show={showAlert}
               variant="danger"
             >
-              sorry ... wrong Email/password
+              sorry ... wrong username/password
             </Alert>
-            <Grid htmlFor="email">
-              <TextField
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-                type="text"
-                value={userFormData.email}
-                onChange={handleInputChange}
-              />
-            </Grid>
+            <TextField
+              htmlFor="email"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              type="text"
+              onChange={handleInputChange}
+              value={userFormData.email}
+            />
             <Form.Control.Feedback type="invalid">
-              {error && <div>Email is required!</div>}
+              {/* {error && <div>Email is required!</div>} */}
             </Form.Control.Feedback>
-            <Grid htmlFor="password">
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                onChange={handleInputChange}
-                value={userFormData.password}
-              />
-            </Grid>
+
+            <TextField
+              htmlFor="password"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              name="password"
+              onChange={handleInputChange}
+              value={userFormData.password}
+            />
             <Form.Control.Feedback type="invalid">
-              {error && <div>Password is required!</div>}
+              {/* {error && <div>Password is required!</div>} */}
             </Form.Control.Feedback>
             <Button
               disabled={!(userFormData.email && userFormData.password)}
@@ -179,12 +167,9 @@ export default function SignIn(props) {
             </Button>
             <Grid container>
               <Grid item style={display.main}>
-                <Typography
-                  onClick={() => setCurrentText("Sign UP")}
-                  style={display.pointer}
-                >
+                <Link href="#" variant="body2">
                   {"Don't have an account? Sign Up"}
-                </Typography>
+                </Link>
               </Grid>
             </Grid>
           </Box>

@@ -97,14 +97,7 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
   type Category {
     _id: ID
-<<<<<<< HEAD
     name: String
-=======
-    username: String
-    email: String
-    productCount: Int
-    savedProducts: [Product]
->>>>>>> caa2bb16438f0a9c8499cfca205b85adb10b555c
   }
 
   type Product {
@@ -119,15 +112,8 @@ const typeDefs = gql`
 
   type Order {
     _id: ID
-<<<<<<< HEAD
     purchaseDate: String
     products: [Product]
-=======
-    contactBody: String
-    userId: String
-    email: String
-    createdAt: String
->>>>>>> caa2bb16438f0a9c8499cfca205b85adb10b555c
   }
 
   type User {
@@ -148,22 +134,12 @@ const typeDefs = gql`
   }
 
   type Query {
-<<<<<<< HEAD
     categories: [Category]
     products(category: ID, name: String): [Product]
     product(_id: ID!): Product
     user: User
     order(_id: ID!): Order
     checkout(products: [ID]!): Checkout
-=======
-    me: User
-    users: [User]
-    user(username: String!): User
-    getAllProducts: [Product]
-    product(_id: ID!): Product
-    getAllReviews: [Product]
-    getContactFormMessages: [ContactUs]
->>>>>>> caa2bb16438f0a9c8499cfca205b85adb10b555c
   }
 
   type Mutation {
@@ -172,23 +148,6 @@ const typeDefs = gql`
     updateUser(firstName: String, lastName: String, email: String, password: String): User
     updateProduct(_id: ID!, quantity: Int!): Product
     login(email: String!, password: String!): Auth
-<<<<<<< HEAD
-=======
-    addUser(username: String!, email: String!, password: String!): Auth
-    addProduct(
-      name: String!
-      description: String!
-      price: Int!
-      rating: Int
-      images: [String]
-      category: String!
-      stock: Int!
-    ): Product
-    removeProduct(productId: ID!): Product
-    addReview(userId: ID!, productId: ID!, reviewBody: String!): Product
-    saveCustomerProducts(savedProduct: ID!): User
-    contactForm(email: String!, contactBody: String!): ContactUs
->>>>>>> caa2bb16438f0a9c8499cfca205b85adb10b555c
   }
 `;
 

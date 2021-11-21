@@ -65,13 +65,7 @@ function AppNavbar() {
         >
           <Tab.Container defaultActiveKey="login">
             <Modal.Body>
-        
-        
-        
-        
               {currentText === "Sign In" ? <SignIn /> : <SignupForm />}
-
-              
             </Modal.Body>
           </Tab.Container>
         </Modal>

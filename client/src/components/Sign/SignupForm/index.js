@@ -117,8 +117,6 @@ export default function SignupForm() {
             >
               sorry...that username is already taken
             </Alert>
-
-            
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField

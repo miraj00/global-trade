@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
-import { useMutation } from "@apollo/client";
-import { CONTACT_FORM } from "../../utils/mutations"
 import { validateEmail } from "../../utils/helpers";
-
+import { Form, Button } from "react-bootstrap";
 
 const display = {
   center: {
@@ -18,18 +15,14 @@ const display = {
     width: "80%"
   }
 };
-function ContactForm(props) {
-  const { onClose } = props  
+function ContactForm() {
   const [formState, setFormState] = useState({
-    userId: "",
+    name: "",
     email: "",
-    contactBody: "",
+    message: "",
   });
-  const [validated] = useState(false);
-  const { email, contactBody } = formState;
+  const { name, email, message } = formState;
   const [errorMessage, setErrorMessage] = useState("");
-  const [contactForm] = useMutation(CONTACT_FORM);
-
 
   function handleChange(e) {
     if (e.target.name === "email") {
@@ -60,45 +53,20 @@ function ContactForm(props) {
 
   // <~!------------------------------------------------------------------------------------!~>
 
-  const handleSubmit =  async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!errorMessage) {
       setFormState({ [e.target.name]: e.target.value });
       console.log("Form", formState);
     }
-
-
-    try {
-      const { data } = await contactForm({
-        variables: {
-          email: formState.email,
-          contactBody: formState.contactBody,
-        },
-      });
-      console.log(data);
-
-      setFormState({
-        email: "",
-        contactBody: "",
-      });
-
-      console.log({
-        formState,
-      });
-    } catch (e) {
-      console.error(e);
-    }
   };
 
   return (
     <section>
+      
       <div style={display.center}>
-        <Form
-          onSubmit={handleSubmit}
-          style={display.form}
-          validated={validated.toString()}
-        >
-          {/* <Form.Group className="mb-3">
+        <Form onSubmit={handleSubmit} style= {display.form}>
+          <Form.Group className="mb-3">
             <Form.Label htmlFor="name">Name:</Form.Label>
             <Form.Control
               type="text"
@@ -107,7 +75,7 @@ function ContactForm(props) {
               name="name"
               placeholder="Name"
             />
-          </Form.Group> */}
+          </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label htmlFor="email">Email address:</Form.Label>
             <Form.Control
@@ -123,8 +91,8 @@ function ContactForm(props) {
             <Form.Control
               as="textarea"
               rows={3}
-              name="contactBody"
-              defaultValue={contactBody}
+              name="message"
+              defaultValue={message}
               onBlur={handleChange}
             />
           </Form.Group>
@@ -133,14 +101,7 @@ function ContactForm(props) {
               <p className="error-text">{errorMessage}</p>
             </div>
           )}
-          <Button
-            variant="primary"
-            type="submit"
-            disabled={!(
-              formState.email &&
-              formState.contactBody)}
-            onC
-          >
+          <Button variant="primary" type="submit">
             Submit
           </Button>
         </Form>
