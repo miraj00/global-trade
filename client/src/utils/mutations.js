@@ -5,10 +5,10 @@ export const LOGIN_USER = gql`
     login(email: $email, password: $password) {
       token
       user {
-        _id        
-        }
+        _id
       }
-    }  
+    }
+  }
 `;
 
 export const ADD_USER = gql`
@@ -25,15 +25,12 @@ export const ADD_USER = gql`
 `;
 
 export const CONTACT_FORM = gql`
-  mutation contactForm($userId: ID!, $email: String!, $contactBody: String!) {
-    contactForm(userId : $userId , email: $email , contactBody: $contactBody ){
-        _id
-        username
-        email
-        contactUs{
-            contactBody
-            createdAt
-        }
+  mutation contactForm($email: String!, $contactBody: String!) {
+    contactForm(email: $email, contactBody: $contactBody) {
+      _id
+      email
+      contactBody
+      createdAt
     }
   }
 `;
@@ -83,4 +80,4 @@ export const REMOVE_PRODUCT = gql`
   }
 `;
 
-export default { LOGIN_USER, ADD_USER, CONTACT_FORM};
+export default { LOGIN_USER, ADD_USER, CONTACT_FORM };

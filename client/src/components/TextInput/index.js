@@ -1,16 +1,12 @@
 import * as React from "react";
-import{ useState } from "react";
-import getProducts from "../../utils/AP_i/allProducts"
-import  productsCategories from "../../utils/AP_i/productsCategories"
+import { useState } from "react";
+import getProducts from "../../utils/AP_i/allProducts";
+import productsCategories from "../../utils/AP_i/productsCategories";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
-import {
-  Container,
-  Card,
-  CardColumns,
-} from "react-bootstrap";
-
+import { Container, Card, CardColumns } from "react-bootstrap";
+import { QUERY_PRODUCTS } from "../../utils/queries"
 
 const Categories = [
   { title: "jewelery" },
@@ -20,37 +16,33 @@ const Categories = [
   { title: "products" },
 ];
 
-
 const display = {
   form: {
     display: "flex",
-    justifyContent: "space-evenly"
+    justifyContent: "space-evenly",
   },
   select: {
     width: "800px",
   },
   btn: {
-    width: "200px"
+    width: "200px",
   },
   margin: {
-    paddingBottom: 60
-  }
+    paddingBottom: 60,
+  },
 };
 
-
 export default function FreeSolo() {
- const [searchedProducts, setSearchedProducts] = useState([]);
+  const [searchedProducts, setSearchedProducts] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
-  
-
   const handleSubmit = async (event) => {
+    event.persist();
     event.preventDefault();
     if (!searchInput) {
       return false;
     }
-    
-    // ;  
+
     if (searchInput === "products") {
       try {
         const response = await getProducts(searchInput);
@@ -82,7 +74,7 @@ export default function FreeSolo() {
     } else {
       try {
         const response = await productsCategories(searchInput);
-
+        event.persist();
         console.log(searchInput);
         console.log(response);
         if (!response.ok) {
@@ -111,7 +103,7 @@ export default function FreeSolo() {
   };
 
   return (
-    <div style= {display.margin}>
+    <div style={display.margin}>
       <form style={display.form} onSubmit={handleSubmit}>
         <Autocomplete
           style={display.select}
@@ -157,7 +149,7 @@ export default function FreeSolo() {
                   <Card.Title>{products.name}</Card.Title>
                   {/* <p className="small"> {products.name}</p> */}
                   <Card.Text>{products.description}</Card.Text>
-                  <Card.Footer> {products.price} $</Card.Footer>
+                  <Card.Footer> ${products.price} </Card.Footer>
                 </Card.Body>
               </Card>
             );
@@ -167,5 +159,3 @@ export default function FreeSolo() {
     </div>
   );
 }
-
-

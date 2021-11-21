@@ -1,15 +1,15 @@
 // import { gql } from "@apollo/client";
 
-// export const GET_USER = gql`
-//   {
-//     me {
-//       _id
-//       username
-//       email
-//       productCount
-//     }
-//   }
-// `;
+// // export const GET_USER = gql`
+// //   {
+// //     me {
+// //       _id
+// //       username
+// //       email
+// //       productCount
+// //     }
+// //   }
+// // `;
 
 // export const QUERY_PRODUCTS = gql`
 //   query getAllProducts {
@@ -22,10 +22,7 @@
 //     images{
 //       url
 //     }
-//     category
-//     stock
 //   }
-
 // `;
 
-// export default { GET_USER, QUERY_PRODUCTS };
+// // export default { GET_USER, QUERY_PRODUCTS };

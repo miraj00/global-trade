@@ -13,7 +13,7 @@ const resolvers = {
       return User.findOne({ username }).select("-__v -password");
     },
 
-    products: async () => {
+    getAllProducts: async () => {
       return Product.find().populate("reviews");
     },
     product: async (parent, { _id }) => {
@@ -23,7 +23,7 @@ const resolvers = {
       return Product.find();
     },
     getContactFormMessages: async () => {
-      return User.find();
+      return ContactUs.find();
     },
   },
 
@@ -70,18 +70,27 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    contactForm: async (parent, { userId, email, contactBody }, context) => {
+    contactForm: async (parent, { email, contactBody }, context) => {
       // console.log(args); // not properly working
+      // if (context.user) {
+      //   const newForm = await User.findByIdAndUpdate(
+      //     userId, // find id first
+      //     {
+      //       $push: {
+      //         contactUs: { email, contactBody, userId: context.user._id },
+      //       },
+      //     }, // pushig it to contactUS in the model
+      //     { new: true, runValidators: true }
+      //   );
+      //   return newForm;
+      // }
+      // throw new AuthenticationError("You need to be logged in!");
       if (context.user) {
-        const newForm = await User.findByIdAndUpdate(
-          userId, // find id first
-          {
-            $push: {
-              contactUs: { email, contactBody, userId: context.user._id },
-            },
-          }, // pushig it to contactUS in the model
-          { new: true, runValidators: true }
-        );
+        const newForm = await ContactUs.create({
+          email,
+          contactBody,
+          userId: context.user._id,
+        });
         return newForm;
       }
       throw new AuthenticationError("You need to be logged in!");

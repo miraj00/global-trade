@@ -33,7 +33,7 @@ const userSchema = new Schema(
         ref: "Product",
       },
     ],
-    contactUs: [contactSchema]
+    // contactUs: [contactSchema]
   },
   // set this to use virtual below
   {
