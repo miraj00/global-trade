@@ -1,6 +1,7 @@
-const { User, Product, Image, Review, ContactUs } = require("../models");
+const { User, Product, Image, Review, ContactUs, Order } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
+const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
 
 const resolvers = {
   Query: {
@@ -8,10 +9,22 @@ const resolvers = {
     users: async () => {
       return User.find().select("-__v -password");
     },
-    // get a user by username
-    user: async (parent, { username }) => {
-      return User.findOne({ username }).select("-__v -password");
+    user: async (parent, args, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id).populate({
+          path: "orders.products",
+          populate: "category",
+        });
+
+        user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
+
+        return user;
+      }
+
+      throw new AuthenticationError("Not logged in");
     },
+    
+    
 
     getAllProducts: async () => {
       return Product.find().populate("reviews");

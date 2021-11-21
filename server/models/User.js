@@ -1,7 +1,9 @@
 const { Schema, model } = require("mongoose");
+const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const { isEmail } = require("validator");
-const contactSchema = require("./ContactUs")
+const Order = require("./Order");
+// const contactSchema = require("./ContactUs")
 
 
 const userSchema = new Schema(
@@ -33,6 +35,7 @@ const userSchema = new Schema(
         ref: "Product",
       },
     ],
+    orders: [Order.schema],
     // contactUs: [contactSchema]
   },
   // set this to use virtual below
@@ -64,6 +67,6 @@ userSchema.virtual("productCount").get(function () {
   return this.savedProducts.length;
 });
 
-const User = model("User", userSchema);
-
+// const User = model("User", userSchema);
+const User = mongoose.model("User", userSchema);
 module.exports = User;

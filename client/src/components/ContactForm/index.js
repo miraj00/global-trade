@@ -3,6 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import { CONTACT_FORM } from "../../utils/mutations"
 import { validateEmail } from "../../utils/helpers";
+import { Snackbar } from "@mui/material";
 
 
 const display = {
@@ -61,7 +62,7 @@ function ContactForm(props) {
   // <~!------------------------------------------------------------------------------------!~>
 
   const handleSubmit =  async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     if (!errorMessage) {
       setFormState({ [e.target.name]: e.target.value });
       console.log("Form", formState);
@@ -136,14 +137,14 @@ function ContactForm(props) {
           <Button
             variant="primary"
             type="submit"
-            disabled={!(
-              formState.email &&
-              formState.contactBody)}
-            onC
+            disabled={!(formState.email && formState.contactBody)}
           >
             Submit
           </Button>
         </Form>
+        {!errorMessage ? (
+          <Snackbar />
+        ) : null}
       </div>
     </section>
   );

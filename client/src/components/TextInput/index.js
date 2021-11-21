@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
 import { Container, Card, CardColumns } from "react-bootstrap";
-import { QUERY_PRODUCTS } from "../../utils/queries"
+// import { QUERY_PRODUCTS } from "../../utils/queries"
 
 const Categories = [
   { title: "jewelery" },

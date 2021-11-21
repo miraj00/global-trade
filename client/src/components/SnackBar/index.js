@@ -1,31 +1,39 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
-import { SnackbarProvider, useSnackbar } from "notistack";
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: "100%",
+    "& > * + *": {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));
 
-function MyApp() {
-  const { enqueueSnackbar } = useSnackbar();
+export default function CustomizedSnackbars() {
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
 
-  
+  const handleClick = () => {
+    setOpen(true);
+  };
 
-  const handleClickVariant = (variant) => () => {
-    // variant could be success, error, warning, info, or default
-    enqueueSnackbar("This is a success message!", { variant });
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
   };
 
   return (
-    <React.Fragment>
-      {/* <Button onClick={handleClick}>Show snackbar</Button> */}
-      <Button onClick={handleClickVariant("success")}>
-        you are Log-in
+    <div className={classes.root}>
+      <Button variant="outlined" onClick={handleClick}>
+        Open success snackbar
       </Button>
-    </React.Fragment>
-  );
-}
-
-export default function IntegrationNotistack() {
-  return (
-    <SnackbarProvider maxSnack={3}>
-      <MyApp />
-    </SnackbarProvider>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">
+          This is a success message!
+        </Alert>
+      </Snackbar>
+      <Alert severity="success">This is a success message!</Alert>
+    </div>
   );
 }

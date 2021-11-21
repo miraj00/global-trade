@@ -3,6 +3,7 @@ import { Nav, Modal, Tab } from "react-bootstrap";
 import SignIn from "../Sign/SignIn";
 import SignupForm from "../Sign/SignupForm";
 import Auth from "../../utils/auth";
+import Cart from "../Cart"
 // import About from "./About"
 
 const display = {
@@ -74,6 +75,7 @@ function AppNavbar() {
             </Modal.Body>
           </Tab.Container>
         </Modal>
+          <Cart />
       </div>
     </>
   );
