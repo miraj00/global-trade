@@ -1,6 +1,6 @@
 import NavBar from "../NavBar/index.js";
 import * as React from "react";
-import { styled } from "@mui/material/styles";
+import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -9,8 +9,15 @@ import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import { Link } from "react-router-dom";
 
+
+// import Typography from "@mui/material/Typography";
+// import ListItem from "@mui/material/ListItem";
+// import ListItemIcon from "@mui/material/ListItemIcon";
+// import ListItemText from "@mui/material/ListItemText";
+// import About from "../About";
+// import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 200;
 const display = {
@@ -66,7 +73,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function SideBar() {
-  // const theme = useTheme();
+  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -78,9 +85,9 @@ export default function SideBar() {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <Box sx={{ display: "flex" }}>
+      
+  
         <Toolbar style={display.nav}>
           <IconButton
             color="inherit"
@@ -90,14 +97,17 @@ export default function SideBar() {
             // sx={{ mr: 2, ...(open && { display: "none" }) }}
           >
             {/* <MenuIcon /> */}
-            <img src="https://img.icons8.com/ios-glyphs/30/000000/menu--v1.png"  alt="img"/>
+            <img className="img1" src="https://img.icons8.com/ios-glyphs/30/000000/menu--v1.png" alt="sidebar" />
           </IconButton>
           {/* <Typography variant="h6" noWrap component="div">
             Persistent drawer
           </Typography> */}
-          <NavBar />
+
+
+
+          {/* <NavBar /> */}
         </Toolbar>
-      </AppBar>
+    
       <Drawer
         sx={{
           width: drawerWidth,
@@ -113,7 +123,7 @@ export default function SideBar() {
       >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            <img src="https://img.icons8.com/ios-filled/50/000000/circled-left-2.png" alt= "img" />
+            <img src="https://img.icons8.com/ios-filled/50/000000/circled-left-2.png" alt="arrow" />
           </IconButton>
         </DrawerHeader>
         <Divider />
@@ -129,36 +139,8 @@ export default function SideBar() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        {/* <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography> */}
       </Main>
     </Box>
+    
   );
 }

@@ -1,4 +1,62 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
+
+// export const LOGIN = gql`
+//   mutation login($email: String!, $password: String!) {
+//     login(email: $email, password: $password) {
+//       token
+//       user {
+//         _id
+//       }
+//     }
+//   }
+// `;
+
+export const ADD_ORDER = gql`
+  mutation addOrder($products: [ID]!) {
+    addOrder(products: $products) {
+      purchaseDate
+      products {
+        _id
+        name
+        description
+        price
+        quantity
+        category {
+          name
+        }
+      }
+    }
+  }
+`;
+
+
+
+
+
+
+// export const ADD_USER = gql`
+//   mutation addUser(
+//     $firstName: String!
+//     $lastName: String!
+//     $email: String!
+//     $password: String!
+//   ) {
+//     addUser(
+//       firstName: $firstName
+//       lastName: $lastName
+//       email: $email
+//       password: $password
+//     ) {
+//       token
+//       user {
+//         _id
+//       }
+//     }
+//   }
+// `;
+
+
+
 
 export const LOGIN_USER = gql`
   mutation login($email: String!, $password: String!) {
@@ -23,64 +81,3 @@ export const ADD_USER = gql`
     }
   }
 `;
-
-export const CONTACT_FORM = gql`
-  mutation contactForm($userId: ID!, $email: String!, $contactBody: String!) {
-    contactForm(userId : $userId , email: $email , contactBody: $contactBody ){
-        _id
-        username
-        email
-        contactUs{
-            contactBody
-            createdAt
-        }
-    }
-  }
-`;
-
-export const SAVE_PRODUCT = gql`
-  mutation saveProduct($input: productInput!) {
-    saveProduct(input: $input) {
-      _id
-      username
-      email
-      savedProducts {
-        _id
-        name
-        description
-        price
-        rating
-        images
-        category
-        stock
-        reviews
-        reviewCount
-      }
-    }
-  }
-`;
-
-export const REMOVE_PRODUCT = gql`
-  mutation removeProduct($productId: String!) {
-    removeProduct(productId: $productId) {
-      _id
-      username
-      email
-      productCount
-      savedProducts {
-        _id
-        name
-        description
-        price
-        rating
-        images
-        category
-        stock
-        reviews
-        reviewCount
-      }
-    }
-  }
-`;
-
-export default { LOGIN_USER, ADD_USER, CONTACT_FORM};
