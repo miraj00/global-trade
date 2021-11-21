@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import ModalC from "../Modal";
-import WorldMap from "../WorldMap";
+import WorldMap from "../WorldMap/index.js";
 import CountrySelector from "../map-list";
 
 import Skyllar from '../../assets/images/Skyllar.JPG';
