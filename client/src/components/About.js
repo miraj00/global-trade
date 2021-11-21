@@ -4,7 +4,7 @@ import '../style.css';
 
 function About() {
     return (
-    
+    <div className="margin4" >
         <React.Fragment>
 
    <div className="container" >
@@ -32,7 +32,7 @@ function About() {
     </div>   
 
     </React.Fragment>
-
+    </div>
         )
     }   
 

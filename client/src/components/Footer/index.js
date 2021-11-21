@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import ModalC from "../Modal";
-import WorldMap from "../WorldMap";
-import CountrySelector from "../map-list";
+import WorldMap from "../WorldMap"
 
-import Skyllar from '../../assets/images/Skyllar.JPG';
 
 const display = {
   flex: {

@@ -53,7 +53,7 @@ function CategoryMenu() {
     <div>
       <h2>Select a Region for Products:</h2>
       {categories.map((item) => (
-        <button
+        <button className="margin8"
           key={item._id}
           onClick={() => {
             // setCategory(item._id);
