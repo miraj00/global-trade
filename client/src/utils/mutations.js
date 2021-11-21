@@ -50,7 +50,6 @@ export const ADD_USER = gql`
   }
 `;
 
-
 export const CONTACT_FORM = gql`
   mutation contactForm($email: String!, $contactBody: String!) {
     contactForm(email: $email, contactBody: $contactBody) {

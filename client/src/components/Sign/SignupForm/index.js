@@ -46,10 +46,11 @@ const theme = createTheme();
 
 export default function SignupForm(props) {
   const { setCurrentText } = props;
-  const [userFormData, setUserFormData] = useState({
-    username: "",
+  const [userFormData, setUserFormData] = useState({    
     email: "",
     password: "",
+    firstName: "",
+    lastName: ""
   });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -62,30 +63,26 @@ export default function SignupForm(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // const data = event.currentTarget;
-
-    // if (data.checkValidity() === false) {
-    //   event.preventDefault();
-    //   event.stopPropagation();
-    // }
 
     try {
       const { data } = await addUser({
         variables: {
-          username: userFormData.username,
           email: userFormData.email,
           password: userFormData.password,
+          firstName: userFormData.firstName,
+          lastName: userFormData.lastName,
         },
       });
       Auth.login(data.addUser.token);
-      console.log("data",data);
+      console.log("data", data);
     } catch (e) {
       console.error(e);
       setShowAlert(true);
     }
 
     setUserFormData({
-      username: "",
+      firstName: "",
+      lastName:"",
       email: "",
       password: "",
     });
@@ -130,18 +127,33 @@ export default function SignupForm(props) {
             >
               sorry...that username is already taken
             </Alert>
+
             <Grid container spacing={2}>
-              <Grid item xs={12} htmlFor="username">
+              <Grid item xs={12} sm={6} htmlFor="firstName">
+                <TextField
+                  autoComplete="given-name"
+                  name="firstName"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                  onChange={handleInputChange}
+                  value={userFormData.firstName}
+                />
+              </Grid>
+
+              <Grid item xs={6} htmlFor="lastName">
                 <TextField
                   autoComplete="given-name"
                   type="text"
-                  name="username"
+                  name="lastName"
                   required
                   fullWidth
-                  id="username"
-                  label="username"
+                  id="lastName"
+                  label="Last Name"
                   onChange={handleInputChange}
-                  value={userFormData.username}
+                  value={userFormData.lastName}
                   autoFocus
                 />
               </Grid>
@@ -188,7 +200,8 @@ export default function SignupForm(props) {
               sx={{ mt: 3, mb: 2 }}
               disabled={
                 !(
-                  userFormData.username &&
+                  userFormData.firstName &&
+                  userFormData.lastName &&
                   userFormData.email &&
                   userFormData.password
                 )

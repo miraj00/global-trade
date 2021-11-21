@@ -1,5 +1,5 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User, Product, Category, Order } = require("../models");
+const { User, Product, Category, Order, ContactUs } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
@@ -9,6 +9,12 @@ const resolvers = {
   Query: {
     categories: async () => {
       return await Category.find();
+    },
+    users: async () => {
+      return await User.find();
+    },
+     getContactFormMessages: async () => {
+      return ContactUs.find();
     },
     products: async (parent, { category, name }) => {
       const params = {};
@@ -133,6 +139,17 @@ const resolvers = {
         { $inc: { quantity: decrement } },
         { new: true }
       );
+    },
+    contactForm: async (parent, { email, contactBody }, context) => {      
+      if (context.user) {
+        const newForm = await ContactUs.create({
+          email,
+          contactBody,
+          userId: context.user._id,
+        });
+        return newForm;
+      }
+      throw new AuthenticationError("You need to be logged in!");
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
