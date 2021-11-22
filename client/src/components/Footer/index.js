@@ -1,12 +1,7 @@
 import React, {useState} from 'react';
 import ModalC from "../Modal";
-<<<<<<< HEAD
 // import WorldMap from "../WorldMap/index.js";
 // import CountrySelector from "../map-list";
-=======
-import WorldMap from "../WorldMap"
-
->>>>>>> f69cbc60353c4ff74c1f00c4287ae8fb61d7f3ce
 
 const display = {
   flex: {

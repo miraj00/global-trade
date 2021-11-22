@@ -133,6 +133,9 @@ export default function SideBar() {
         <Link to="/team" onClick={handleDrawerClose}>
         <div className="style7">  Team       </div>
         </Link>
+        <Link to="/worldmap" onClick={handleDrawerClose}>
+          <div className="style7"> World Map</div>
+          </Link>
         <Divider />
         <List>
         </List>
