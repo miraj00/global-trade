@@ -369,7 +369,7 @@ p {
 }
 
 a {
-  color: white;
+  color: var(--tertiary);
   text-decoration: none;
   font-weight: bold;
   
