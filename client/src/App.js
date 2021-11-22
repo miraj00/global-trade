@@ -80,12 +80,13 @@ function App() {
               <Route exact path="/products/:id" component={Detail} />
               <Route path = "/worldmap" exact component={WorldMap}/> 
               <Route exact= "/team" exact component={Team}/>
+              <Route component={NoMatch} />
             </Switch>
           </StoreProvider>
           <Footer />
-        </div>
       </Router>
     </ApolloProvider>
+    </div>
   );
 }
 

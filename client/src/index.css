@@ -568,7 +568,7 @@ input:focus {
 
 .navActive {
   color: var(--secondary);
-  align: center;
+  box-align: center;
 }
 
 .map-selected {

@@ -10,15 +10,12 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-<<<<<<< HEAD
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import About from "../About";
 import { Link, NavLink } from "react-router-dom";
 import WorldMap from "react-world-map";
-=======
->>>>>>> main
 
 
 // import Typography from "@mui/material/Typography";
