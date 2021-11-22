@@ -8,7 +8,7 @@ import Walter from './assets/images/Walter.JPG';
 
 
 
-const data =  [
+const data =  [ 
     {
         "id": 1,
         "name": "Jose L.Mejia",

@@ -1,60 +1,70 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { pluralize } from "../../utils/helpers";
-
+import React, { useEffect } from 'react';
+import { UPDATE_CATEGORIES, UPDATE_CURRENT_CATEGORY } from '../../utils/actions';
+import { useQuery } from '@apollo/client';
+import { QUERY_CATEGORIES } from '../../utils/queries';
 import { useStoreContext } from "../../utils/GlobalState";
-import { ADD_TO_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
 
-import { idbPromise } from "../../utils/helpers";
+// add to use indexedDB 
+import { idbPromise } from '../../utils/helpers';
 
-function ProductItem(item) {
-  const { image, name, _id, price, quantity } = item;
+function CategoryMenu() {
+  // const { data: categoryData } = useQuery(QUERY_CATEGORIES);
+  // const categories = categoryData?.categories || [];
 
-  const [state, dispatch] = useStoreContext();
 
-  const { cart } = state;
+      const [state, dispatch] = useStoreContext();
 
-  const addToCart = () => {
-    // find the cart item with the matching id
-    const itemInCart = cart.find((cartItem) => cartItem._id === _id);
+      const { categories } = state;
+      
+      const { loading, data: categoryData } = useQuery(QUERY_CATEGORIES);
 
-    // if there was a match, call UPDATE with a new purchase quantity
-    if (itemInCart) {
-      dispatch({
-        type: UPDATE_CART_QUANTITY,
-        _id: _id,
-        purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1,
-      });
+      useEffect(() => {
+        // if categoryData exists or has changed from the response of useQuery, then run dispatch()
+        if (categoryData) {
+          // execute our dispatch function with our action object indicating the type of action and the data to set our state for categories to
+          dispatch({
+            type: UPDATE_CATEGORIES,
+            categories: categoryData.categories
+          });
+          categoryData.categories.forEach(category => {
+            idbPromise('categories', 'put', category);
+          });
+        } else if (!loading) {
+          idbPromise('categories', 'get').then(categories => {
+            dispatch({
+              type: UPDATE_CATEGORIES,
+              categories: categories
+            });
+          });
+        }      
+      }, [categoryData, loading, dispatch]);
 
-      idbPromise("cart", "put", {
-        ...itemInCart,
-        purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1,
-      });
-    } else {
-      dispatch({
-        type: ADD_TO_CART,
-        product: { ...item, purchaseQuantity: 1 },
-      });
+      
+      const handleClick = id => {
+        dispatch({
+          type: UPDATE_CURRENT_CATEGORY,
+          currentCategory: id
+        });
+      };
 
-      idbPromise("cart", "put", { ...item, purchaseQuantity: 1 });
-    }
-  };
 
+  
   return (
-    <div className="card px-1 py-1">
-      <Link to={`/products/${_id}`}>
-        <img alt={name} src={`/images/${image}`} />
-        <p>{name}</p>
-      </Link>
-      <div>
-        <div>
-          {quantity} {pluralize("item", quantity)} in stock
-        </div>
-        <span>${price}</span>
-      </div>
-      <button onClick={addToCart}>Add to cart</button>
+    <div>
+      <h2>Select a Region for Products:</h2>
+      {categories.map((item) => (
+        <button className="margin8"
+          key={item._id}
+          onClick={() => {
+            // setCategory(item._id);
+            handleClick(item._id);
+          }}
+        >
+          {item.name}
+        </button>
+      ))}
     </div>
   );
 }
 
-export default ProductItem;
+export default CategoryMenu;

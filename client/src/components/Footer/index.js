@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import ModalC from "../Modal";
+import WorldMap from "../WorldMap"
 
 
 const display = {
@@ -11,13 +12,9 @@ const display = {
   contact: {
     padding: "0 35px",
     textDecorationLine: "none"
-  },
-  sticky: {
-    width: "100%",
-    position: "absolute",
-    bottom : 0
   }
 }
+
 
 function Footer() {
     const [currentText, setCurrentText] = useState();
@@ -25,15 +22,21 @@ function Footer() {
      const toggleModal = () => {
        setIsModalOpen(!isModalOpen);
      };
-  return (
-      <div style = {display.sticky}>
-      <div style={display.flex} >
-        <div>
+    return (
+      <div className="Fonts2">
+      <div style={display.flex}>
+
+          <span className="block-example border border-dark"  >
+         <WorldMap /> </span> 
+    
+
+          <div className="Fonts">
           <span> &copy; 2021 Global Trade, Inc.</span>
         </div>
-        <div>
-          <a
-            //href="#"
+        
+        <div className="Fonts">
+            <a
+            href="#"
             onClick={() => {
               setIsModalOpen(true);
               setCurrentText("CONTACT US");
@@ -61,8 +64,9 @@ function Footer() {
             ></ModalC>
           )}
         </div>
-      </div>
-      </div>
+   </div>
+
+</div>
     );
     }   
 

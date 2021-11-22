@@ -2,11 +2,7 @@ const dateFormat = require("../utils/dateFormat");
 const { Schema, model } = require("mongoose");
 
 const contactSchema = new Schema({
-
-  email: {
-    type: String,
-    required: true,
-  } , 
+    
   contactBody: {
     type: String,
     required: [true, "please add a message"],
@@ -25,5 +21,5 @@ const contactSchema = new Schema({
   },
 });
 
-const ContactUs = model("ContactUs", contactSchema);
+const ContactUs = contactSchema;
 module.exports = ContactUs;

@@ -10,13 +10,24 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
+<<<<<<< HEAD
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import About from "../About";
 import { Link, NavLink } from "react-router-dom";
 import WorldMap from "react-world-map";
+=======
+>>>>>>> main
 
+
+// import Typography from "@mui/material/Typography";
+// import ListItem from "@mui/material/ListItem";
+// import ListItemIcon from "@mui/material/ListItemIcon";
+// import ListItemText from "@mui/material/ListItemText";
+// import About from "../About";
+// import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 200;
 const display = {
@@ -84,9 +95,9 @@ export default function SideBar() {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <Box sx={{ display: "flex" }}>
+      
+  
         <Toolbar style={display.nav}>
           <IconButton
             color="inherit"
@@ -101,9 +112,12 @@ export default function SideBar() {
           {/* <Typography variant="h6" noWrap component="div">
             Persistent drawer
           </Typography> */}
-          <NavBar />
+
+
+
+          {/* <NavBar /> */}
         </Toolbar>
-      </AppBar>
+    
       <Drawer
         sx={{
           width: drawerWidth,
@@ -124,10 +138,10 @@ export default function SideBar() {
         </DrawerHeader>
         <Divider />
         <Link to="/about" onClick={handleDrawerClose}>
-          About
+        <div className="style7">  About   </div>
         </Link>
         <Link to="/team" onClick={handleDrawerClose}>
-          Team
+        <div className="style7">  Team       </div>
         </Link>
         <Link to="/worldmap" onClick={handleDrawerClose}>
           WorldMap
@@ -170,5 +184,6 @@ export default function SideBar() {
         {/* <About /> */}
       </Main>
     </Box>
+    
   );
 }

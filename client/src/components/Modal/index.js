@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal, Button  } from "react-bootstrap";
 import ContactForm from "../ContactForm";
 
@@ -43,8 +43,8 @@ function ModalC(props) {
               <h1 style={display.header}>Please Contact Us</h1>
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body show={isModalOpen} onHide={onClose} >
-            <ContactForm onClose={ onclose }/>
+          <Modal.Body show={isModalOpen} onHide={onClose} animation={true}>
+            <ContactForm />
           </Modal.Body>
           <Modal.Footer>
             <Button style={display.variant} onClick={onClose}>

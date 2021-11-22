@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Nav, Modal, Tab } from "react-bootstrap";
 import SignIn from "../Sign/SignIn";
 import SignupForm from "../Sign/SignupForm";
-import Auth from "../../utils/auth";
-import Cart from "../Cart"
+// import Cart from "../Cart";
 // import About from "./About"
 
 const display = {
@@ -30,37 +30,32 @@ function AppNavbar() {
     <>
       <div className="topnav">
         <Nav variant="tabs" defaultActiveKey="/home" style={display.nav}>
+          {/* <div>
+            <Nav.Item>
+              <Nav.Link href="#">About</Nav.Link>
+            </Nav.Item>
+          </div> */}
           <div style={display.inline}>
-
-            {Auth.loggedIn() ? (
-              <>
-              <Nav.Link onClick={Auth.logout} style={display.cart}>Logout</Nav.Link>
-              <Cart />
-              </>
-            ) : (
-              <>
-                <Nav.Item>
-                  <Nav.Link
-                    onClick={() => {
-                      setShowModal(true);
-                      setCurrentText("Sign In");
-                    }}
-                  >
-                    Sign In
-                  </Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link
-                    onClick={() => {
-                      setShowModal(true);
-                      setCurrentText("Sign Up");
-                    }}
-                  >
-                    Sign Up
-                  </Nav.Link>
-                </Nav.Item>
-              </>
-            )}
+            <Nav.Item>
+              <Nav.Link
+                onClick={() => {
+                  setShowModal(true);
+                  setCurrentText("Sign In");
+                }}
+              >
+                Sign In
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                onClick={() => {
+                  setShowModal(true);
+                  setCurrentText("Sign Up");
+                }}
+              >
+                Sign Up
+              </Nav.Link>
+            </Nav.Item>
           </div>
         </Nav>
         <Modal
@@ -72,17 +67,16 @@ function AppNavbar() {
           style={display.modalmargin}
         >
           <Tab.Container defaultActiveKey="login">
-            <Modal.Body style={{padding: "0"}}>
-              {currentText === "Sign In" ? (
-                <SignIn setCurrentText={setCurrentText} />
-              ) : (
-                <SignupForm setCurrentText={setCurrentText} />
-              )}
+            <Modal.Body>
+              {currentText === "Sign In" ? <SignIn /> : <SignupForm />}
             </Modal.Body>
           </Tab.Container>
         </Modal>
-          {/* <Cart /> */}
+
+        
+
       </div>
+     
     </>
   );
 }
