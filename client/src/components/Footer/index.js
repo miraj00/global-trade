@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import ModalC from "../Modal";
-import WorldMap from "../WorldMap/index.js";
-import CountrySelector from "../map-list";
-
-import Skyllar from '../../assets/images/Skyllar.JPG';
+// import WorldMap from "../WorldMap/index.js";
+// import CountrySelector from "../map-list";
 
 const display = {
   flex: {
@@ -28,8 +26,9 @@ function Footer() {
       <div className="Fonts2">
       <div style={display.flex}>
 
-          <span className="block-example border border-dark"  >
-         <WorldMap /> </span> 
+          {/* <span className="block-example border border-dark"  >
+         <WorldMap />     
+          </span>  */}
     
 
           <div className="Fonts">
