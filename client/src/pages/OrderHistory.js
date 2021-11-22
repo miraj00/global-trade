@@ -17,6 +17,7 @@ function OrderHistory() {
       <div className="container my-1">
         <Link to="/"><button>← Back to Main Page</button></Link>
 
+<div className="margin5">
         {user ? (
           <>
             {user.orders.map((order) => (
@@ -41,6 +42,8 @@ function OrderHistory() {
             ))}
           </>
         ) : null}
+ 
+      </div>
       </div>
     </>
   );
