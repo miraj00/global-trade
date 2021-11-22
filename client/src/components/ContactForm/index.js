@@ -20,7 +20,7 @@ const display = {
   }
 };
 function ContactForm(props) {
-  const { onClose } = props  
+  //const { onClose } = props  
   const [formState, setFormState] = useState({
     userId: "",
     email: "",

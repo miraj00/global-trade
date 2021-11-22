@@ -33,7 +33,7 @@ function Footer() {
         </div>
         <div>
           <a
-            href="#"
+            //href="#"
             onClick={() => {
               setIsModalOpen(true);
               setCurrentText("CONTACT US");

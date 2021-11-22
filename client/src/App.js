@@ -12,11 +12,13 @@ import Footer from "./components/Footer";
 import SideBar from "./components/SideBar";
 import About from "./components/About";
 import TextInput from "./components/TextInput";
-import NoMatch from "./pages/NoMatch";
+//import NoMatch from "./pages/NoMatch";
 import Home from "./pages/Home";
 import OrderHistory from "./pages/OrderHistory";
 import Success from "./pages/Success";
 import Detail from "./pages/Detail";
+import Team from "./components/Team"
+import WorldMap from "./components/WorldMap"
 
 
 import { StoreProvider } from "./utils/GlobalState";
@@ -52,7 +54,8 @@ function App() {
               <Route exact path="/success" component={Success} />
               <Route exact path="/orderHistory" component={OrderHistory} />
               <Route exact path="/products/:id" component={Detail} />
-              <Route component={NoMatch} />
+              <Route path = "/worldmap" exact component={WorldMap}/> 
+              <Route exact= "/team" exact component={Team}/>
             </Switch>
           </StoreProvider>
           <Footer />

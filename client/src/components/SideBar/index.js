@@ -1,15 +1,21 @@
 import NavBar from "../NavBar/index.js";
 import * as React from "react";
-import { styled } from "@mui/material/styles";
+import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
+import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import { Link } from "react-router-dom";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import About from "../About";
+import { Link, NavLink } from "react-router-dom";
+import WorldMap from "react-world-map";
 
 
 const drawerWidth = 200;
@@ -17,9 +23,6 @@ const display = {
   nav: {
     justifyContent: "space-between",
     display: "flex",
-  },
-  cart: {
-    display: "flex"
   },
 };
 
@@ -69,7 +72,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function SideBar() {
-  // const theme = useTheme();
+  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -93,18 +96,12 @@ export default function SideBar() {
             // sx={{ mr: 2, ...(open && { display: "none" }) }}
           >
             {/* <MenuIcon /> */}
-            <img
-              src="https://img.icons8.com/ios-glyphs/30/000000/menu--v1.png"
-              alt="img"
-            />
+            <img src="https://img.icons8.com/ios-glyphs/30/000000/menu--v1.png" />
           </IconButton>
           {/* <Typography variant="h6" noWrap component="div">
             Persistent drawer
           </Typography> */}
-          
-            <NavBar />
-            
-          
+          <NavBar />
         </Toolbar>
       </AppBar>
       <Drawer
@@ -122,10 +119,7 @@ export default function SideBar() {
       >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            <img
-              src="https://img.icons8.com/ios-filled/50/000000/circled-left-2.png"
-              alt="img"
-            />
+            <img src="https://img.icons8.com/ios-filled/50/000000/circled-left-2.png" />
           </IconButton>
         </DrawerHeader>
         <Divider />
@@ -135,8 +129,12 @@ export default function SideBar() {
         <Link to="/team" onClick={handleDrawerClose}>
           Team
         </Link>
+        <Link to="/worldmap" onClick={handleDrawerClose}>
+          WorldMap
+        </Link>
         <Divider />
-        <List></List>
+        <List>
+        </List>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
@@ -169,6 +167,7 @@ export default function SideBar() {
           eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
           posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography> */}
+        {/* <About /> */}
       </Main>
     </Box>
   );
