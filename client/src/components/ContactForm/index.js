@@ -3,7 +3,10 @@ import { Form, Button } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import { CONTACT_FORM } from "../../utils/mutations"
 import { validateEmail } from "../../utils/helpers";
-
+import Auth from "../../utils/auth";
+import Stack from "@mui/material/Stack";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 const display = {
   center: {
@@ -18,8 +21,14 @@ const display = {
     width: "80%"
   }
 };
-function ContactForm(props) {
-  const { onClose } = props  
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+
+
+function ContactForm() {
   const [formState, setFormState] = useState({
     userId: "",
     email: "",
@@ -29,6 +38,21 @@ function ContactForm(props) {
   const { email, contactBody } = formState;
   const [errorMessage, setErrorMessage] = useState("");
   const [contactForm] = useMutation(CONTACT_FORM);
+
+
+   const [open, setOpen] = React.useState(false);
+
+   const handleClick = () => {
+     setOpen(true);
+   };
+
+   const handleClose = (event, reason) => {
+     if (reason === "clickaway") {
+       return;
+     }
+
+     setOpen(false);
+   };
 
 
   function handleChange(e) {
@@ -98,16 +122,6 @@ function ContactForm(props) {
           style={display.form}
           validated={validated.toString()}
         >
-          {/* <Form.Group className="mb-3">
-            <Form.Label htmlFor="name">Name:</Form.Label>
-            <Form.Control
-              type="text"
-              defaultValue={name}
-              onBlur={handleChange}
-              name="name"
-              placeholder="Name"
-            />
-          </Form.Group> */}
           <Form.Group className="mb-3">
             <Form.Label htmlFor="email">Email address:</Form.Label>
             <Form.Control
@@ -134,15 +148,47 @@ function ContactForm(props) {
             </div>
           )}
           <Button
+            onClick={handleClick}
             variant="primary"
             type="submit"
-            disabled={!(
-              formState.email &&
-              formState.contactBody)}
+            disabled={!(formState.email && formState.contactBody)}
             onC
           >
             Submit
           </Button>
+          {Auth.loggedIn() ? (
+            <Stack spacing={2} sx={{ width: "100%" }}>
+              <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+              >
+                <Alert
+                  onClose={handleClose}
+                  severity="success"
+                  sx={{ width: "100%" }}
+                >
+                  Thank you for your feedBack , we appreciate your bussiness !
+                </Alert>
+              </Snackbar>
+            </Stack>
+          ) : (
+            <Stack spacing={2} sx={{ width: "100%" }}>
+              <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+              >
+                <Alert
+                  onClose={handleClose}
+                  severity="error"
+                  sx={{ width: "100%" }}
+                >
+                  sorry but you need to be log-in to be able to reach us!
+                </Alert>
+              </Snackbar>
+            </Stack>
+          )}
         </Form>
       </div>
     </section>

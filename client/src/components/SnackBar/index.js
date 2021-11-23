@@ -1,31 +1,39 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
-import { SnackbarProvider, useSnackbar } from "notistack";
+// import * as React from "react";
+// import Button from "@mui/material/Button";
+// import Snackbar from "@mui/material/Snackbar";
+// import Fade from "@mui/material/Fade";
+// import Slide from "@mui/material/Slide";
+// import Grow from "@mui/material/Grow";
 
-function MyApp() {
-  const { enqueueSnackbar } = useSnackbar();
+// function SlideTransition(props) {
+//   return <Slide {...props} direction="up" />;
+// }
+
+// export default function TransitionsSnackbar() {
+//   const [state, setState] = React.useState({
+//     open: false,
+//     Transition: SlideTransition,
+//   });
 
   
 
-  const handleClickVariant = (variant) => () => {
-    // variant could be success, error, warning, info, or default
-    enqueueSnackbar("This is a success message!", { variant });
-  };
+//   const handleClose = () => {
+//     setState({
+//       ...state,
+//       open: false,
+//     });
+//   };
 
-  return (
-    <React.Fragment>
-      {/* <Button onClick={handleClick}>Show snackbar</Button> */}
-      <Button onClick={handleClickVariant("success")}>
-        you are Log-in
-      </Button>
-    </React.Fragment>
-  );
-}
-
-export default function IntegrationNotistack() {
-  return (
-    <SnackbarProvider maxSnack={3}>
-      <MyApp />
-    </SnackbarProvider>
-  );
-}
+//   return (
+//     <div>
+//       {/* <Button onClick={handleClick(SlideTransition)}>Slide Transition</Button> */}
+//       <Snackbar
+//         open={state.open}
+//         onClose={handleClose}
+//         TransitionComponent={state.Transition}
+//         message="I love snacks"
+//         key={state.Transition.name}
+//       />
+//     </div>
+//   );
+// }
