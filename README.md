@@ -28,7 +28,7 @@
   
 
 
-  [![code with hearth by GITHUB_USERNAME](https://img.shields.io/badge/%3C%2F%3E%20with%20%E2%99%A5%20by-miraj00--mejialaguna--juju69--walterlaw19--soaresmaria--skyllarb-ff1414.svg?style=flat-square)](https://github.com/miraj00/global_trade.git)
+  [![code with hearth by GITHUB_USERNAME](https://img.shields.io/badge/%3C%2F%3E%20with%20%E2%99%A5%20by-miraj00--mejialaguna--juju69--walterlaw19--soaresmaria--skyllarb-ff1414.svg?style=flat-square)](https://github.com/miraj00/global-trade.git)
   <br/>
   <br/>
 
@@ -414,5 +414,5 @@ First off , thanks for taking the time to check out my app! , contribution are w
 
 <br/>
 <div align="center">
-<a href="https://github.com/miraj00/global_trade/issues/">For any Question and to point out a bug please click here...</a> 
+<a href="https://github.com/miraj00/global-trade/issues/">For any Question and to point out a bug please click here...</a> 
 </div>
