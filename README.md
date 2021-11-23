@@ -357,13 +357,25 @@ Concurrently also has a Node API to start concurrent processes programmatically 
   <summary> Skylar Byron. <a href= "https://github.com/skyllarb?tab=repositories"><img src="https://img.icons8.com/clouds/32/000000/github.png" align="right"/> </a>
   </summary>
   <ul>
-  <li> Wild Card (helped everyone)
+       <li> Wild Card (helped everyone)
+
   </ul>
 
 </details>
 
+
   <br/>
 
+  <details>
+  <summary> Umair Ali. <a href= "https://github.com/umairali-bit?tab=repositories"><img src= "https://img.icons8.com/clouds/32/000000/github.png" align="right"/> </a>
+  </summary>
+  <ul>
+
+  <li> Wild Card(helped everyone)
+
+</ul>
+
+</details>
 
 
   # Acknowledgements
