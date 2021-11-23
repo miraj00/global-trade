@@ -53,7 +53,7 @@ const data =  [
     },
     {
         "id": 7,
-        "name": "Walter Gonzalez",
+        "name": "Walter Gonzales",
         "image": Walter,
         "github": "https://github.com/walterlaw19",
         "deploy": "https://walterlaw19.github.io/first-portfolio/"
