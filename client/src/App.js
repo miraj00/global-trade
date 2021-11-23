@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 import SideBar from "./components/SideBar"
 import About from "./components/About";
 import Team from "./components/Team"
-import WorldMap from "./components/WorldMap"
+import WorldMapPage from "./components/WorldMapPage"
 
 // import SearchProducts from './pages/SearchProducts';
 // import SavedProducts from './pages/SavedProducts';
@@ -75,7 +75,7 @@ function App() {
           <Switch>
             <Route path="/about" exact component= {About} />
             <Route path="/team"  component= {Team} />
-            <Route path= "/worldmap" exact component={WorldMap}/>
+            <Route path= "/worldmap" exact component={WorldMapPage}/>
 
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
