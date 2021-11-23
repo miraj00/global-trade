@@ -3,6 +3,7 @@ import { Nav, Modal, Tab } from "react-bootstrap";
 import SignIn from "../Sign/SignIn";
 import SignupForm from "../Sign/SignupForm";
 import Auth from "../../utils/auth";
+import TextInput from "../TextInput";
 // import About from "./About"
 
 const display = {
@@ -11,7 +12,8 @@ const display = {
     borderBottom: "none",
   },
   inline: {
-    display: "flex",    
+    display: "flex",
+    marginTop: 8
   },
   modalmargin: {
     marginTop: "100px",
@@ -26,8 +28,9 @@ function AppNavbar() {
     <>
       <div className="topnav">
         <Nav variant="tabs" defaultActiveKey="/home" style={display.nav}>
+          
+          <TextInput /> 
           <div style={display.inline}>
-
             {Auth.loggedIn() ? (
               <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
             ) : (
@@ -65,7 +68,7 @@ function AppNavbar() {
           style={display.modalmargin}
         >
           <Tab.Container defaultActiveKey="login">
-            <Modal.Body style={{padding: "0"}}>
+            <Modal.Body style={{ padding: "0" }}>
               {currentText === "Sign In" ? (
                 <SignIn setCurrentText={setCurrentText} />
               ) : (

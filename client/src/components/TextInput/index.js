@@ -4,9 +4,10 @@ import getProducts from "../../utils/AP_i/allProducts";
 import productsCategories from "../../utils/AP_i/productsCategories";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
 import { Container, Card, CardColumns } from "react-bootstrap";
-import { QUERY_PRODUCTS } from "../../utils/queries"
+import { QUERY_PRODUCTS } from "../../utils/queries";
 
 const Categories = [
   { title: "jewelery" },
@@ -32,9 +33,19 @@ const display = {
   },
 };
 
+function sleep(delay = 0) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, delay);
+  });
+}
+
+
 export default function FreeSolo() {
   const [searchedProducts, setSearchedProducts] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+  const [open, setOpen] = React.useState(false);
+  const [options, setOptions] = React.useState([]);
+  const loading = open && options.length === 0;
 
   const handleSubmit = async (event) => {
     event.persist();
@@ -102,29 +113,77 @@ export default function FreeSolo() {
     }
   };
 
+  React.useEffect(() => {
+    let active = true;
+
+    if (!loading) {
+      return undefined;
+    }
+
+    (async () => {
+      await sleep(1e3);
+
+      if (active) {
+        setOptions([...Categories]);
+      }
+    })();
+
+    return () => {
+      active = false;
+    };
+  }, [loading]);
+
+  React.useEffect(() => {
+    if (!open) {
+      setOptions([]);
+    }
+  }, [open]);
+
   return (
-    <div style={display.margin}>
+    <div>
       <form style={display.form} onSubmit={handleSubmit}>
         <Autocomplete
-          style={display.select}
-          disableClearable
-          options={Categories.map((option) => option.title)}
+          id="asynchronous-demo"
+          sx={{ width: 400 }}
+          open={open}
+          onOpen={() => {
+            setOpen(true);
+          }}
+          onClose={() => {
+            setOpen(false);
+          }}
+          isOptionEqualToValue={(option, value) => option.title === value.title}
+          getOptionLabel={(option) => option.title}
+          options={options}
+          loading={loading}
           renderInput={(params) => (
             <TextField
               {...params}
-              name="searchInput"
-              InputProps={{
-                ...params.InputProps,
-                type: "search",
+              style={{
+                marginTop: 3,
+                backgroundColor: "white"
               }}
+              name="searchInput"
               value={searchInput}
               onBlur={(e) => setSearchInput(e.target.value)}
               label="Search Category"
+              InputProps={{
+                ...params.InputProps,
+                endAdornment: (
+                  <React.Fragment>
+                    {loading ? (
+                      <CircularProgress color="inherit" size={20} />
+                    ) : null}
+                    {params.InputProps.endAdornment}
+                  </React.Fragment>
+                ),
+              }}
             />
           )}
         />
-        <Button variant="outlined" type="submit" style={display.btn}>
-          search
+
+        <Button variant="outlined" type="submit">
+          <img src="https://img.icons8.com/ios-glyphs/20/000000/search--v2.png" />
         </Button>
       </form>
 

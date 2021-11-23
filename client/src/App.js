@@ -12,9 +12,8 @@ import Footer from "./components/Footer";
 import SideBar from "./components/SideBar";
 import About from "./components/About";
 import Team from "./components/Team";
-import TextInput from "./components/TextInput";
-// import SearchProducts from "./pages/SearchProducts";
-// import SavedProducts from "./pages/SavedProducts";
+
+import Main from "./components/Main"
 
 const httpLink = createHttpLink({
   uri: "http://localhost:3001/graphql",
@@ -33,18 +32,18 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+
+
 function App() {
   return (
     <div style={{ minHeight: "100vh", position: "relative" }}>
       <ApolloProvider client={client}>
         <Router>
           <SideBar />
-          <TextInput />
           <Switch>
-            {/* <Route exact path="/" component={SearchProducts} /> */}
+            <Main />
             <Route path="/about" exact component={About} />
             <Route path="/team" component={Team} />
-            {/* <Route exact path="/saved" component={SavedProducts} /> */}
             {/* <Route render={() => <h1 className='display-2'>Wrong page!</h1>} /> */}
           </Switch>
 
