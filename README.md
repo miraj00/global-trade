@@ -28,7 +28,7 @@
   
 
 
-  [![code with hearth by GITHUB_USERNAME](https://img.shields.io/badge/%3C%2F%3E%20with%20%E2%99%A5%20by-miraj00--mejialaguna--juju69--walterlaw19--soaresmaria--skyllarb-ff1414.svg?style=flat-square)](https://github.com/miraj00/global-trade.git)
+  [![code with hearth by GITHUB_USERNAME](https://img.shields.io/badge/%3C%2F%3E%20with%20%E2%99%A5%20by-miraj00--mejialaguna--juju69--walterlaw19--soaresmaria--skyllarb--umairali-bit--ff1414.svg?style=flat-square)](https://github.com/miraj00/global-trade.git)
   <br/>
   <br/>
 
