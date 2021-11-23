@@ -126,7 +126,7 @@ If you would like to watch the functionality of this application please, <a href
   
 
   <br/>
-
+<!-- 
 > - <a href="https://www.w3schools.com/css/">CSS</a>
     <details>
         <summary>INFO</summary>
@@ -245,8 +245,23 @@ If you would like to watch the functionality of this application please, <a href
        <ul>
        <li> Concurrently is a Node package that allows you to run multiple scripts at the same time in Node.js. It's especially useful if you want to run your app's front-end and back-end from a single NPM command.
 Concurrently also has a Node API to start concurrent processes programmatically from within a script file. However, if you use concurrently programmatically, it may be unclear how to make sure everything shuts down cleanly when you kill the process in your command line.
-   </ul>
+   </ul> -->
 
+
+  
+  <div align="center">
+
+  | front end  | backend | others |
+| ------------- | ------------- | ------------- |
+| <a href="https://www.w3schools.com/html/"><img src="https://img.shields.io/badge/HTML5-ff1709?style=flate&logo=HTML5&logoColor=ff1709&color=ff1709&labelColor=gray" /></a>   |  <a href="https://expressjs.com/"><img src="https://img.shields.io/badge/express-ff1709?style=flate&logo=express&logoColor=black&color=005571&labelColor=gray" /></a>  | <a href="https://www.mongodb.com/"><img src="https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=flate&logo=visual-studio&logoColor=blue&color=blue&labelColor=gray" /></a> |
+| <a href="https://www.w3schools.com/css/"><img src="https://img.shields.io/badge/CSS3-ff1709?style=flate&logo=CSS3&logoColor=white&color=0048BA&labelColor=gray" /></a>  | <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/node.js-0b1e20?style=flate&logo=node.js&logoColor=587f51&color=587f51&labelColor=gray" /></a> | <a href="https://www.mongodb.com/"><img src="https://img.shields.io/badge/git-%23F05033.svg?style=flate&logo=git&logoColor=orange&color=red&labelColor=gray" /></a> |
+| <a href="https://www.javascript.com"><img src="https://img.shields.io/badge/JavaScript-ff1709?style=flate&logo=JavaScript&logoColor=yellow&color=yellow&labelColor=gray" /></a>   | <a href="https://www.w3schools.com/js/js_es6.asp"><img src="https://img.shields.io/badge/ES6-ff1709?style=flate&logo=ES6&logoColor=E10098&color=lime&labelColor=gray" /></a>   | <a href="https://github.com/mejialaguna/Book_Search.git"><img src="https://img.shields.io/badge/github-%23121011.svg?style=flate&logo=github&logoColor=white&color=ff1709&labelColor=gray" /></a>  |
+| <a href="https://getbootstrap.com/"><img src="https://img.shields.io/badge/Bootstrap-ff1709?style=flate&logo=Bootstrap&logoColor=white&color=9955bb&labelColor=gray" /></a>  | <a href="https://www.npmjs.com/"><img src="https://img.shields.io/badge/npm-ff1709?style=flate&logo=npm&logoColor=E10098&color=black&labelColor=gray" /></a> | <a href="https://www.mongodb.com/"><img src="https://img.shields.io/badge/heroku-%23430098.svg?style=flate&logo=heroku&logoColor=6762A6&color=6762A6&labelColor=white" /></a>  |
+| <a href="https://mui.com/"><img src="https://img.shields.io/badge/MUI-%230081CB.svg?style=flate&logo=material-ui&logoColor=blue&color=white&labelColor=gray" /></a>  | <a href="https://www.mongodb.com/"><img src="https://img.shields.io/badge/react-ff1709?style=flate&logo=react&logoColor=blue&color=blue&labelColor=gray" /></a>   |
+|  | <a href="https://graphql.org/"><img src="https://img.shields.io/badge/mongodb-ff1709?style=flate&logo=mongodb&logoColor=189950&color=189950&labelColor=gray" /></a>   |
+|   | <a href="https://www.mongodb.com/"><img src="https://img.shields.io/badge/GraphQL-ff1709?style=flate&logo=GraphQL&logoColor=E10098&color=ff1709&labelColor=gray" /></a>  |
+
+</div>
 
   <br/>
   <br/>
