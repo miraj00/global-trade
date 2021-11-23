@@ -43,7 +43,7 @@ db.once('open', async () => {
       name: 'Winter-Coat',
       description:
         'Orolay Women Down Jacket with Removable Hood Winter Down Coat',
-      image: 'Winter-Coat.jpg',
+      image: 'Winter-Coat.JPG',
       category: categories[0]._id,
       price: 250.99,
       quantity: 500
@@ -252,7 +252,7 @@ db.once('open', async () => {
       category: categories[6]._id,
       description:
         'Antarctica Swan widespread Bathroom Widespread Faucet With Swarovski Crystals',
-      image: 'Swan-Faucet.jpg',
+      image: 'Swan-Faucet.JPG',
       price: 329.99,
       quantity: 600
     },
@@ -261,7 +261,7 @@ db.once('open', async () => {
       category: categories[6]._id,
       description:
         'Polar bear, animal kingdom, south pole, antarctic wildlife, north pole №1830 Ready to Hang Canvas Print ',
-      image: 'Canvas-Print.jpg',
+      image: 'Canvas-Print.JPG',
       price: 199.99,
       quantity: 100
     },
