@@ -15,7 +15,7 @@
   <br/>
   <br/>
   
-  <a href="#about"><strong>Explore the screenshots »</strong></a>
+  <!-- <a href="#about"><strong>Explore the screenshots »</strong></a> -->
   <br/>
   <br/>
   
