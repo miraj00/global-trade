@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
-import { CONTACT_FORM } from "../../utils/mutations"
+import { CONTACT_FORM } from "../../utils/mutations";
 import { validateEmail } from "../../utils/helpers";
 import Auth from "../../utils/auth";
 import Stack from "@mui/material/Stack";
@@ -18,15 +18,13 @@ const display = {
     margin: "60px",
   },
   form: {
-    width: "80%"
-  }
+    width: "80%",
+  },
 };
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
-
-
 
 function ContactForm() {
   const [formState, setFormState] = useState({
@@ -35,25 +33,23 @@ function ContactForm() {
     contactBody: "",
   });
   const [validated] = useState(false);
-  const { email, contactBody } = formState;
+  // const { email, contactBody } = formState;
   const [errorMessage, setErrorMessage] = useState("");
   const [contactForm] = useMutation(CONTACT_FORM);
 
+  const [open, setOpen] = React.useState(false);
 
-   const [open, setOpen] = React.useState(false);
+  const handleClick = () => {
+    setOpen(true);
+  };
 
-   const handleClick = () => {
-     setOpen(true);
-   };
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
 
-   const handleClose = (event, reason) => {
-     if (reason === "clickaway") {
-       return;
-     }
-
-     setOpen(false);
-   };
-
+    setOpen(false);
+  };
 
   function handleChange(e) {
     if (e.target.name === "email") {
@@ -84,13 +80,12 @@ function ContactForm() {
 
   // <~!------------------------------------------------------------------------------------!~>
 
-  const handleSubmit =  async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!errorMessage) {
       setFormState({ [e.target.name]: e.target.value });
       console.log("Form", formState);
     }
-
 
     try {
       const { data } = await contactForm({
@@ -99,19 +94,15 @@ function ContactForm() {
           contactBody: formState.contactBody,
         },
       });
-      console.log(data);
-
-      setFormState({
-        email: "",
-        contactBody: "",
-      });
-
-      console.log({
-        formState,
-      });
+      Auth.login(data.login.token);
     } catch (e) {
       console.error(e);
     }
+
+    setFormState({
+      email: "",
+      contactBody: "",
+    });
   };
 
   return (
@@ -126,8 +117,8 @@ function ContactForm() {
             <Form.Label htmlFor="email">Email address:</Form.Label>
             <Form.Control
               type="email"
-              defaultValue={email}
               name="email"
+              Value={formState.email}
               onBlur={handleChange}
               placeholder="name@example.com"
             />
@@ -135,11 +126,11 @@ function ContactForm() {
           <Form.Group className="mb-3">
             <Form.Label htmlFor="message">Message:</Form.Label>
             <Form.Control
-              as="textarea"
               rows={3}
               name="contactBody"
-              defaultValue={contactBody}
-              onBlur={handleChange}
+              type="contactBody"
+              Value={formState.contactBody}
+              onChange={handleChange}
             />
           </Form.Group>
           {errorMessage && (
@@ -152,16 +143,15 @@ function ContactForm() {
             variant="primary"
             type="submit"
             disabled={!(formState.email && formState.contactBody)}
-            onC
           >
             Submit
           </Button>
-          {Auth.loggedIn() ? (
+          {Auth.loggedIn() && !errorMessage ? (
             <Stack spacing={2} sx={{ width: "100%" }}>
               <Snackbar
                 open={open}
-                autoHideDuration={6000}
-                onClose={handleClose}
+                autoHideDuration={2000}
+                onClose={(handleClose, Auth.contactUs)}
               >
                 <Alert
                   onClose={handleClose}

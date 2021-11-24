@@ -67,7 +67,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-export default function SideBar() {
+export default function SideBar({setProducts}) {
   // const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -101,7 +101,7 @@ export default function SideBar() {
             Persistent drawer
           </Typography> */}
           
-          <NavBar />
+          <NavBar setProducts={ setProducts}/>
         </Toolbar>
       </AppBar>
       <Drawer

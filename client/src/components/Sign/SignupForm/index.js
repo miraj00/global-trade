@@ -13,6 +13,7 @@ import { Alert, Form } from "react-bootstrap";
 import Auth from "../../../utils/auth";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../../../utils/mutations";
+import Snackbar from "../../SnackBar";
 
 const display = {
   width: {
@@ -45,7 +46,8 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignupForm(props) {
-  const { setCurrentText } = props;
+  const [open, setOpen] = React.useState(false);
+  const { currentText, setCurrentText } = props;
   const [userFormData, setUserFormData] = useState({
     username: "",
     email: "",
@@ -55,6 +57,13 @@ export default function SignupForm(props) {
   const [showAlert, setShowAlert] = useState(false);
   const [addUser, { error }] = useMutation(ADD_USER);
 
+
+
+
+   const handleClick = () => {
+     setOpen(true);
+   };
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
@@ -62,12 +71,6 @@ export default function SignupForm(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // const data = event.currentTarget;
-
-    // if (data.checkValidity() === false) {
-    //   event.preventDefault();
-    //   event.stopPropagation();
-    // }
 
     try {
       const { data } = await addUser({
@@ -172,7 +175,6 @@ export default function SignupForm(props) {
                   name="password"
                   label="Password"
                   id="password"
-                  // autoComplete="new-password"
                   onChange={handleInputChange}
                   value={userFormData.password}
                 />
@@ -194,7 +196,14 @@ export default function SignupForm(props) {
                 )
               }
             >
-              Sign Up
+              <Snackbar
+                handleClick={handleClick}
+                setOpen={setOpen}
+                open={open}
+                currentText={currentText}
+                severity={"info"}
+                message= "Thank for Sign in up."
+              />
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item style={display.main}>

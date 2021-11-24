@@ -6,8 +6,9 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
-import { Container, Card, CardColumns } from "react-bootstrap";
+
 import { QUERY_PRODUCTS } from "../../utils/queries";
+import data from "../../data";
 
 const Categories = [
   { title: "jewelery" },
@@ -40,7 +41,7 @@ function sleep(delay = 0) {
 }
 
 
-export default function FreeSolo() {
+export default function FreeSolo({setProducts}) {
   const [searchedProducts, setSearchedProducts] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [open, setOpen] = React.useState(false);
@@ -77,7 +78,8 @@ export default function FreeSolo() {
         }));
 
         // console.log(Data)
-        setSearchedProducts(Data);
+        // setSearchedProducts(Data);
+        setProducts(Data)
         setSearchInput("");
       } catch (err) {
         console.error(err);
@@ -105,7 +107,8 @@ export default function FreeSolo() {
         }));
 
         // console.log(Data)
-        setSearchedProducts(Data);
+        // setSearchedProducts(Data);
+        setProducts(Data);
         setSearchInput("");
       } catch (err) {
         console.error(err);
@@ -187,34 +190,7 @@ export default function FreeSolo() {
         </Button>
       </form>
 
-      <Container>
-        <h2>
-          {searchedProducts.length
-            ? `Viewing ${searchedProducts.length} results:`
-            : null}
-        </h2>
-        <CardColumns>
-          {searchedProducts.map((products) => {
-            return (
-              <Card key={products.productsId} border="dark">
-                {products.images ? (
-                  <Card.Img
-                    src={products.images}
-                    alt={`The cover for ${products.title}`}
-                    variant="top"
-                  />
-                ) : null}
-                <Card.Body>
-                  <Card.Title>{products.name}</Card.Title>
-                  {/* <p className="small"> {products.name}</p> */}
-                  <Card.Text>{products.description}</Card.Text>
-                  <Card.Footer> ${products.price} </Card.Footer>
-                </Card.Body>
-              </Card>
-            );
-          })}
-        </CardColumns>
-      </Container>
+     
     </div>
   );
 }

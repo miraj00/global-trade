@@ -4,7 +4,6 @@ import SignIn from "../Sign/SignIn";
 import SignupForm from "../Sign/SignupForm";
 import Auth from "../../utils/auth";
 import TextInput from "../TextInput";
-// import About from "./About"
 
 const display = {
   nav: {
@@ -18,9 +17,12 @@ const display = {
   modalmargin: {
     marginTop: "100px",
   },
+   border: {
+    border: "none"
+  } 
 };
 
-function AppNavbar() {
+function AppNavbar({setProducts}) {
   const [showModal, setShowModal] = useState(false);
   const [currentText, setCurrentText] = useState();
 
@@ -28,15 +30,17 @@ function AppNavbar() {
     <>
       <div className="topnav">
         <Nav variant="tabs" defaultActiveKey="/home" style={display.nav}>
-          
-          <TextInput /> 
+          <TextInput setProducts={setProducts} />
           <div style={display.inline}>
             {Auth.loggedIn() ? (
-              <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
+              <Nav.Link onClick={Auth.logout} style={display.border}>
+                Logout
+              </Nav.Link>
             ) : (
               <>
                 <Nav.Item>
                   <Nav.Link
+                    style={display.border}
                     onClick={() => {
                       setShowModal(true);
                       setCurrentText("Sign In");
@@ -47,6 +51,7 @@ function AppNavbar() {
                 </Nav.Item>
                 <Nav.Item>
                   <Nav.Link
+                    style={display.border}
                     onClick={() => {
                       setShowModal(true);
                       setCurrentText("Sign Up");
@@ -70,9 +75,15 @@ function AppNavbar() {
           <Tab.Container defaultActiveKey="login">
             <Modal.Body style={{ padding: "0" }}>
               {currentText === "Sign In" ? (
-                <SignIn setCurrentText={setCurrentText} />
+                <SignIn
+                  currentText={currentText}
+                  setCurrentText={setCurrentText}
+                />
               ) : (
-                <SignupForm setCurrentText={setCurrentText} />
+                <SignupForm
+                  currentText={currentText}
+                  setCurrentText={setCurrentText}
+                />
               )}
             </Modal.Body>
           </Tab.Container>

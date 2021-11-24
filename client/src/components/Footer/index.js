@@ -3,22 +3,32 @@ import ModalC from "../Modal";
 
 
 const display = {
+  back: {},
   flex: {
     display: "flex",
     justifyContent: "space-between",
-    margin: "20px"
+    margin: "20px",
   },
   contact: {
     padding: "0 33px",
-    textDecorationLine: "none"
+    textDecorationLine: "none",
   },
   sticky: {
     width: "100%",
     position: "absolute",
-    // bottom: 0,
-    marginTop: 50
+    background: "#343a40",
+    marginTop: 50,
+  },
+  credit: {
+    textAlign: "center",
+    borderTop: "1px black solid",
+    margin: "20px 300px",
+    padding: "10px"
+  },
+  each: {
+    margin:" 0 5px"
   }
-}
+};
 
 function Footer() {
     const [currentText, setCurrentText] = useState();
@@ -29,10 +39,10 @@ function Footer() {
   return (
     <div style={display.sticky}>
       <div style={display.flex}>
-        <div>
+        <div style={{ color: "#007bff" }}>
           <span> &copy; 2021 Global Trade, Inc.</span>
         </div>
-        <div>
+        {/* <div>
           <img
             style={{ marginRight: 10 }}
             src="https://img.icons8.com/color/30/000000/linkedin.png"
@@ -61,7 +71,7 @@ function Footer() {
             style={{ marginRight: 10 }}
             src="https://img.icons8.com/color/30/000000/pinterest--v6.png"
           />
-        </div>
+        </div> */}
         <div>
           <a
             href="#"
@@ -92,6 +102,16 @@ function Footer() {
             ></ModalC>
           )}
         </div>
+      </div>
+      <div style={display.credit}>
+        <img style={display.each} src="https://img.icons8.com/color/30/000000/visa.png" />
+        <img style={display.each}  src="https://img.icons8.com/ios-filled/30/000000/mastercard.png" />
+        <img style={display.each}  src="https://img.icons8.com/color/30/000000/amex.png" />
+        <img style={display.each}  src="https://img.icons8.com/color/30/000000/discover.png" />
+        <img style={display.each}  src="https://img.icons8.com/ios-filled/30/000000/apple-pay.png" />
+        <img style={display.each}  src="https://img.icons8.com/color/30/000000/google-pay-india.png" />
+        <img style={display.each}  src="https://img.icons8.com/windows/30/000000/amazon-pay.png" />
+        <img style={display.each}  src="https://img.icons8.com/color/30/000000/samsung.png" />
       </div>
     </div>
   );
