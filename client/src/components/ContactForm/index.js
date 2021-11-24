@@ -1,6 +1,13 @@
 import React, { useState } from "react";
+import { Form, Button , Nav } from "react-bootstrap";
+import { useMutation } from "@apollo/client";
+import { CONTACT_FORM } from "../../utils/mutations";
 import { validateEmail } from "../../utils/helpers";
-import { Form, Button } from "react-bootstrap";
+import Auth from "../../utils/auth";
+import Stack from "@mui/material/Stack";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import { Link } from "@mui/material";
 
 const display = {
   center: {
@@ -12,17 +19,38 @@ const display = {
     margin: "60px",
   },
   form: {
-    width: "80%"
-  }
+    width: "80%",
+  },
 };
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 function ContactForm() {
   const [formState, setFormState] = useState({
-    name: "",
+    userId: "",
     email: "",
-    message: "",
+    contactBody: "",
   });
-  const { name, email, message } = formState;
+  const [validated] = useState(false);
+  const { email, contactBody } = formState;
   const [errorMessage, setErrorMessage] = useState("");
+  const [contactForm] = useMutation(CONTACT_FORM);
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   function handleChange(e) {
     if (e.target.name === "email") {
@@ -53,47 +81,57 @@ function ContactForm() {
 
   // <~!------------------------------------------------------------------------------------!~>
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!errorMessage) {
       setFormState({ [e.target.name]: e.target.value });
       console.log("Form", formState);
     }
+
+    try {
+      const { data } = await contactForm({
+        variables: {
+          ...formState,
+        },
+      });
+      Auth.login(data.login.token);
+      
+    } catch (e) {
+      console.error(e);
+    }
+
+    setFormState({
+      email: "",
+      contactBody: "",
+    });
   };
 
   return (
     <section>
-      
       <div style={display.center}>
-        <Form onSubmit={handleSubmit} style= {display.form}>
-          <Form.Group className="mb-3">
-            <Form.Label htmlFor="name">Name:</Form.Label>
-            <Form.Control
-              type="text"
-              defaultValue={name}
-              onBlur={handleChange}
-              name="name"
-              placeholder="Name"
-            />
-          </Form.Group>
+        <Form
+          onSubmit={handleSubmit}
+          style={display.form}
+          validated={validated.toString()}
+        >
           <Form.Group className="mb-3">
             <Form.Label htmlFor="email">Email address:</Form.Label>
             <Form.Control
               type="email"
-              defaultValue={email}
               name="email"
-              onBlur={handleChange}
+              Value={formState.email}
+              onChange={handleChange}
               placeholder="name@example.com"
             />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label htmlFor="message">Message:</Form.Label>
             <Form.Control
-              as="textarea"
               rows={3}
-              name="message"
-              defaultValue={message}
-              onBlur={handleChange}
+              name="contactBody"
+              type="contactBody"
+              Value={formState.contactBody}
+              onChange={handleChange}
             />
           </Form.Group>
           {errorMessage && (
@@ -101,9 +139,47 @@ function ContactForm() {
               <p className="error-text">{errorMessage}</p>
             </div>
           )}
-          <Button variant="primary" type="submit">
-            Submit
+          <Button
+            onClick={handleClick}
+            variant="primary"
+            type="submit"
+            disabled={!(formState.email && formState.contactBody)}
+          >
+            Submit 
           </Button>
+          {Auth.loggedIn() && !errorMessage ? (
+            <Stack spacing={2} sx={{ width: "100%" }}>
+              <Snackbar
+                open={open}
+                autoHideDuration={2000}
+                onClose={handleClose , Auth.contactUs}
+              >
+                <Alert
+                  onClose={handleClose}
+                  severity="success"
+                  sx={{ width: "100%" }}
+                >
+                  Thank you for your feedBack , we appreciate your bussiness !
+                </Alert>
+              </Snackbar>
+            </Stack>
+          ) : (
+            <Stack spacing={2} sx={{ width: "100%" }}>
+              <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+              >
+                <Alert
+                  onClose={handleClose}
+                  severity="error"
+                  sx={{ width: "100%" }}
+                >
+                  please login to reach us!
+                </Alert>
+              </Snackbar>
+            </Stack>
+          )}
         </Form>
       </div>
     </section>

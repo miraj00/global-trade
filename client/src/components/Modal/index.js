@@ -44,7 +44,9 @@ function ModalC(props) {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body show={isModalOpen} onHide={onClose} animation={true}>
-            <ContactForm />
+            <ContactForm
+              onClose={onclose}
+            />
           </Modal.Body>
           <Modal.Footer>
             <Button style={display.variant} onClick={onClose}>
