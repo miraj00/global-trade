@@ -89,18 +89,13 @@ export default function SideBar({setProducts}) {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            // sx={{ mr: 2, ...(open && { display: "none" }) }}
           >
-            {/* <MenuIcon /> */}
+           
             <img
               src="https://img.icons8.com/ios-glyphs/20/000000/menu--v1.png"
               alt="img"
             />
           </IconButton>
-          {/* <Typography variant="h6" noWrap component="div">
-            Persistent drawer
-          </Typography> */}
-          
           <NavBar setProducts={ setProducts}/>
         </Toolbar>
       </AppBar>
@@ -126,9 +121,7 @@ export default function SideBar({setProducts}) {
         <Link to="/about" onClick={handleDrawerClose}>
           About
         </Link>
-        <Link to="/team" onClick={handleDrawerClose}>
-          Team
-        </Link>
+       
         <Divider />
         <List></List>
       </Drawer>

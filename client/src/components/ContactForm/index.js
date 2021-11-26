@@ -33,7 +33,6 @@ function ContactForm() {
     contactBody: "",
   });
   const [validated] = useState(false);
-  // const { email, contactBody } = formState;
   const [errorMessage, setErrorMessage] = useState("");
   const [contactForm] = useMutation(CONTACT_FORM);
 
@@ -70,12 +69,8 @@ function ContactForm() {
     }
 
     if (!errorMessage) {
-      setFormState({ ...formState, [e.target.name]: e.target.value });
-
-      // to sync the form data to the state for the other form elements as well.
+      setFormState({ ...formState, [e.target.name]: e.target.value });      
     }
-
-    console.log(errorMessage);
   }
 
   // <~!------------------------------------------------------------------------------------!~>

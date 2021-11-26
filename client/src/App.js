@@ -12,7 +12,6 @@ import NoMatch from "./components/NoMatch";
 import Footer from "./components/Footer";
 import SideBar from "./components/SideBar";
 import About from "./components/About";
-import Team from "./components/Team";
 import Main from "./components/Main"
 import ProductContext from "./utils/productContext";
 import SignIn from "./components/Sign/SignIn"
@@ -49,10 +48,7 @@ function App() {
             <SideBar setProducts={setProducts} />
             <Switch>
               <Route exact path="/" component={Main} />
-              <Route exact path="/login" component={SignIn} />
-              <Route exact path="/signup" component={SignUp} />
               <Route path="/about" exact component={About} />
-              <Route path="/team" component={Team} />
               <Route component={NoMatch} />
             </Switch>
 
